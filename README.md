@@ -1,32 +1,44 @@
-# Atlas-OS v1.1.0 — Engineering Operating System
+# Engineering-OS v1.2.0 — Atlas Engineering Operating System
 
 ## Purpose
-Atlas-OS is a documentation-only engineering operating system designed to serve as the permanent operating manual, decision framework, and architecture scaffolding for software projects.
 
-## Scope
-Covers all core governance, operational templates, project definitions, knowledge bases, and retrospective archives across all current and future engineering initiatives.
+Engineering-OS is the permanent engineering governance, decision, prompt, template, project, and knowledge system used by Atlas and implementation agents such as Mikasa.
 
-## When to Use
-Consult Atlas-OS at the onset of new projects, during sprint planning, architecture reviews, bug triage, refactoring, and release workflows.
+It is designed to protect engineering time, project stability, Founder resources, and long-term maintainability.
 
-## Related Documents
-- [00-Core Governance](./00-Core/Atlas-Constitution.md)
-- [01-Templates Catalog](./01-Templates/Sprint-Template.md)
-- [02-Projects Registry](./02-Projects/FSOS/Project.md)
-- [03-Knowledge Base](./03-Knowledge/Cloudflare.md)
-- [04-Archive](./04-Archive/README.md)
+## Core Operating Model
+
+```text
+User Intent
+    ↓
+Evidence
+    ↓
+Analysis
+    ↓
+Root Cause
+    ↓
+Decision Gate
+    ↓
+Enhanced Prompt / Implementation
+    ↓
+Verification
+    ↓
+Documentation
+```
 
 ## Repository Structure
-```
-Atlas-OS/
+
+```text
+Engineering-OS/
 ├── README.md
+├── CHANGELOG.md
+├── metadata.json
 ├── 00-Core/
 │   ├── Atlas-Constitution.md
 │   ├── CTO-Checklist.md
-│   ├── Prompt-Standard.md
-│   ├── Prompt-Enhancement-Guide.md
-│   ├── Engineering-Principles.md
-│   └── Decision-Making.md
+│   ├── Decision-Making.md
+│   ├── Engineering Principles.md
+│   └── Prompt-Standard.md
 ├── 01-Templates/
 │   ├── Sprint-Template.md
 │   ├── Bugfix-Template.md
@@ -35,10 +47,7 @@ Atlas-OS/
 │   ├── Architecture-Review.md
 │   └── Release-Template.md
 ├── 02-Projects/
-│   ├── FSOS/
-│   ├── Vault/
-│   ├── SmartHome/
-│   └── IdleGame/
+│   └── FSOS/
 ├── 03-Knowledge/
 │   ├── Cloudflare.md
 │   ├── Workers.md
@@ -53,26 +62,50 @@ Atlas-OS/
 │   ├── Git.md
 │   └── GitHub.md
 └── 04-Archive/
-    ├── Completed-Sprints/
-    ├── Retrospectives/
-    └── Lessons-Learned/
+    ├── Completed-Sprints.md
+    └── Engineering-Lessons-EL-*.md
 ```
 
-## How Atlas-OS is Used
-1. **Core Governance**: Reference `00-Core/` for engineering policies, prompts, and decision guidelines.
-2. **Execution via Templates**: Instantiate operational templates from `01-Templates/` into project sprint directories.
-3. **Project Management**: Track active project specs, architecture, and roadmaps in `02-Projects/`.
-4. **Knowledge Sharing**: Access technology guidelines and best practices in `03-Knowledge/`.
-5. **Historical Archiving**: Archive finalized sprint reports and retrospectives in `04-Archive/`.
+## Core Governance
 
-## Versioning Strategy
-Atlas-OS follows Semantic Versioning (`MAJOR.MINOR.PATCH`):
-- `MAJOR`: Structural changes or overhaul of core principles.
-- `MINOR`: New templates, project additions, or knowledge expansions.
-- `PATCH`: Formatting fixes, link corrections, and template minor edits.
+Read `00-Core/` before making a material engineering decision. Core rules define evidence discipline, cost control, prompt quality, change control, and decision gates.
+
+## Templates
+
+Use `01-Templates/` for repeatable sprint, bugfix, migration, architecture, refactor, and release workflows.
+
+## Projects
+
+Project-specific architecture and roadmap information lives in `02-Projects/`. Projects inherit Core governance but maintain their own implementation details.
+
+## Knowledge
+
+`03-Knowledge/` contains practical technology guidance. Status labels must reflect verified current usage rather than historical assumptions.
+
+## Archive
+
+`04-Archive/` preserves completed work and reusable engineering lessons. Historical records should not be rewritten except to correct factual errors.
+
+## Versioning
+
+Engineering-OS follows Semantic Versioning:
+
+- **MAJOR** — governance or structural overhaul.
+- **MINOR** — new capabilities, rules, templates, or knowledge areas.
+- **PATCH** — corrections and maintenance.
 
 ## Contribution Workflow
-1. Branch off `main`.
-2. Propose modifications to core documents or new templates via Pull Request.
-3. Conduct Architecture & Governance review.
-4. Merge and bump Atlas-OS version.
+
+1. Identify the objective.
+2. Inspect the current source of truth.
+3. Establish evidence.
+4. Propose or perform the smallest justified change.
+5. Verify the result.
+6. Update documentation/versioning when applicable.
+7. Record reusable lessons.
+
+## Current Version
+
+**v1.2.0**
+
+See [CHANGELOG.md](./CHANGELOG.md).

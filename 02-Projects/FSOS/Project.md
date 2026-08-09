@@ -1,168 +1,92 @@
 # FSOS (Field Service Operations System)
 
-# Project Status
+## Project Status
 
-## Status
+- **Status:** Active Development
+- **Verified Version:** v1.0.14
+- **Foundation:** Green / verified
+- **Remaining Foundation Issue:** Durable cross-device image persistence
+- **Priority:** High
+- **Owner:** Sahafiz
+- **Lead Architect:** Atlas
+- **Implementation Engineer:** Mikasa
 
-Active Development
+## Purpose
 
-## Version
+FSOS is an engineering operations platform for field service execution, Machine Health Checks, machine data, reporting, contract management, and operational intelligence.
 
-v0.9.x
+## Vision
 
-## Priority
+Build a reliable engineering operating platform that enables field engineers to execute work efficiently, manage operational data, generate professional reports, and synchronize information across multiple devices.
 
-Critical
-
-## Repository
-
-(To be updated)
-
-## Owner
-
-Sahafiz
-
-## Lead Architect
-
-Atlas
-
-## Implementation Engineer
-
-Mikasa
-
----
-
-# Purpose
-
-FSOS (Field Service Operations System) is an engineering operations platform designed to manage field service execution, machine health checks, reporting, contract management, and operational intelligence.
-
-The project follows Engineering-OS standards for architecture, engineering workflow, documentation, and software quality.
-
----
-
-# Vision
-
-Build a premium engineering platform that enables field engineers to execute work efficiently, manage operational data, generate professional reports, and synchronize information across multiple devices.
-
-The long-term vision is to create a reliable engineering operating platform rather than a simple maintenance dashboard.
-
----
-
-# Current Objectives
-
-- Complete MHC Workspace
-- Complete Report Studio
-- Improve Cloud Synchronization
-- Stabilize Engineering Workflow
-- Prepare Founder Release
-
----
-
-# Technology Stack
+## Verified Technology Stack
 
 Frontend
 
 - React
-- Cloudflare Pages
+- Vite
+- Tailwind
+- Cloudflare Worker static assets / frontend delivery
 
 Backend
 
 - Cloudflare Workers
 
-Cloud
+Database
 
-- D1
+- Cloudflare D1
 
 Version Control
 
 - Git
 - GitHub
 
----
+Future / Not Yet Active
 
-# Engineering Principles
+- R2 for durable image storage
+- SQLite for future desktop/offline architecture
+- Tauri or Electron evaluation for future standalone software
 
-FSOS follows all Engineering-OS principles.
+## Current Foundation Status
 
-Project-specific decisions should never violate Engineering-OS Core principles.
+Verified green:
 
----
+- Workers deployment
+- GitHub → Cloudflare deployment chain
+- D1 authoritative persistence
+- Create/Edit/Delete synchronization
+- Full-sync deletion reconciliation
+- D1 migrations and indexes
+- Runtime version/deployment identity
+- Version consistency
+- Deployment reproducibility
+- Local/production parity
 
-# Milestones
+Remaining red capability:
 
-Foundation
+- Image persistence across devices
+- Server-side image deletion
 
-Completed
+## Current Objectives
 
-Core Dashboard
+1. Resolve image persistence without introducing an unapproved recurring service cost.
+2. Preserve the verified synchronization foundation.
+3. Continue operational modules only after foundation risk is controlled.
 
-Completed
+## Long-Term Architecture Direction
 
-Machine Health Check
+FSOS may evolve from a browser-first application into standalone desktop software.
 
-In Progress
+Future direction:
 
-Report Studio
+**Standalone Client → Local Database → Sync Engine → Cloudflare Worker → D1**
 
-In Progress
+This is future scope, not current implementation work.
 
-Cloud Synchronization
+## Engineering Principles
 
-In Progress
+FSOS follows Engineering-OS Core governance. Project decisions must respect evidence discipline, cost constraints, change control, and verification requirements.
 
-Founder Release
+## Revision Policy
 
-Planned
-
----
-
-# Current Challenges
-
-- Multi-device synchronization
-- Offline capability
-- Report generation workflow
-- Engineering workflow optimization
-
----
-
-# Success Criteria
-
-FSOS is considered production-ready when:
-
-- Stable synchronization
-- Reliable reporting
-- Predictable workflow
-- Professional user experience
-- Maintainable architecture
-
----
-
-# Related Documents
-
-Engineering Principles
-
-CTO Checklist
-
-Sprint Template
-
-Prompt Standard
-
-Cloudflare
-
-Workers
-
-Pages
-
-D1
-
-Git
-
-GitHub
-
----
-
-# Revision Policy
-
-This document evolves throughout the lifetime of the FSOS project.
-
-Major architectural decisions should be reflected here.
+Update this document when verified project architecture, status, or major decisions change. Do not use it as a sprint backlog.

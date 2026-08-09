@@ -1,177 +1,50 @@
 # Cloudflare Pages
 
-# Technology Status
+## Technology Status
 
-Current Usage
-
-Not Yet Used
-
-Adoption Priority
-
-Future Projects
-
-Learning Priority
+- **Current Usage:** Available in the Cloudflare account; not the FSOS production deployment target
+- **Adoption:** Project-dependent
+- **FSOS Role:** None in the current production deployment chain
 
 ## Purpose
 
-This document serves as the Engineering-OS decision guide for Cloudflare Pages.
+Pages is a frontend hosting/deployment platform. This document exists to prevent Pages and Workers deployment histories from being confused.
 
-It focuses on engineering decisions, deployment strategy, operational boundaries, and practical experience rather than reproducing vendor documentation.
+## Responsibilities
 
----
-
-# Overview
-
-Cloudflare Pages is a static hosting platform optimized for modern frontend applications.
-
-Within Engineering-OS, Pages is responsible for hosting user interfaces while delegating backend processing to Cloudflare Workers.
-
----
-
-# Primary Responsibilities
-
-Cloudflare Pages should be responsible for:
+Pages is appropriate for:
 
 - Static frontend hosting
-- HTML
-- CSS
-- JavaScript
-- React applications
-- Asset delivery
-- CDN distribution
-- Frontend deployment
+- Compiled frontend assets
+- React applications that explicitly use Pages
 
-Pages should not contain backend business logic.
+Pages should not be treated as a backend server.
 
----
+## FSOS Rule
 
-# When to Use
+FSOS production uses **Cloudflare Workers**, not Pages.
 
-Use Pages when:
+A successful Pages build or deployment must never be used as evidence that the FSOS Worker deployment succeeded.
 
-✓ Hosting static websites
+## Investigation Rule
 
-✓ Deploying React applications
+If a Cloudflare incident occurs:
 
-✓ Delivering frontend assets globally
+1. Identify whether the failing target is Pages or Workers.
+2. Follow only that pipeline first.
+3. Compare source commit and deployed commit.
+4. Verify the actual runtime/URL.
 
-✓ Requiring automatic HTTPS
+## Common Mistakes
 
-✓ Fast frontend deployment is desired
+- Chasing a green Pages deployment while Workers is failing.
+- Assuming shared repository history means shared deployment state.
+- Treating frontend success as proof of backend success.
 
----
-
-# When NOT to Use
-
-Avoid Pages when:
-
-✗ Building REST APIs
-
-✗ Processing backend business logic
-
-✗ Running scheduled jobs
-
-✗ Accessing databases directly
-
-✗ Performing authentication logic
-
-Those responsibilities belong in Cloudflare Workers.
-
----
-
-# Best Practices
-
-- Keep frontend and backend separated.
-- Deploy only compiled frontend assets.
-- Store secrets outside the frontend.
-- Use Workers for API communication.
-- Version deployments.
-- Monitor deployment status.
-
----
-
-# Common Mistakes
-
-- Treating Pages like a Node.js server.
-- Attempting backend processing inside the frontend.
-- Hardcoding API endpoints.
-- Exposing secrets in client-side code.
-- Mixing deployment responsibilities.
-
----
-
-# Lessons Learned
-
-## Lesson 001
-
-Pages is a frontend platform.
-
-Workers is a backend platform.
-
-Never confuse their responsibilities.
-
----
-
-## Lesson 002
-
-API failures should be investigated independently of frontend rendering.
-
-Separate frontend debugging from backend debugging.
-
----
-
-## Lesson 003
-
-Deployments completing successfully do not guarantee backend functionality.
-
-Always verify frontend rendering and API communication independently.
-
----
-
-# Decision Matrix
-
-Need to deploy a frontend?
-
-→ Pages
-
-Need server-side processing?
-
-→ Workers
-
-Need SQL storage?
-
-→ D1
-
-Need object storage?
-
-→ R2
-
-Need global key/value storage?
-
-→ KV
-
----
-
-# Related Documents
+## Related Documents
 
 Cloudflare.md
 
 Workers.md
 
 D1.md
-
-R2.md
-
-KV.md
-
----
-
-# Revision Policy
-
-This document evolves through practical engineering experience.
-
-Every deployment issue, routing problem, or operational lesson should improve this guide.
-
-Avoid generic platform documentation.
-
-Capture Engineering-OS knowledge.

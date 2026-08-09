@@ -1,289 +1,119 @@
 # FSOS Engineering Decisions
 
-# Document Status
+## Document Status
 
-## Status
+- **Status:** Living Document
+- **Verified Version:** v1.0.14
+- **Owner:** Atlas
 
-Living Document
-
-## Version
-
-v0.9.x
-
-## Owner
-
-Atlas
-
----
-
-# Purpose
-
-This document records all significant engineering decisions made throughout the FSOS project.
-
-Its purpose is to preserve the reasoning behind architectural, technical, and product decisions so future development remains consistent and informed.
-
----
-
-# Decision Record Format
+## Decision Record Format
 
 Every major decision should include:
 
 - Decision
-- Reason
-- Alternatives Considered
-- Impact
-- Date
+- Reason/evidence
+- Alternatives considered
+- Cost/operational impact
+- Reversibility
+- Date/version
 - Status
 
----
+## Decision 001 — Cloudflare Platform
 
-# Decision 001
+**Decision:** Cloudflare is the primary FSOS deployment ecosystem.
 
-## Decision
+**Reason:** Workers and D1 provide the verified production runtime and relational persistence with low operational overhead.
 
-Cloudflare is the primary deployment platform.
+**Important boundary:** R2 and other paid-capable services are not automatically included merely because they are in the Cloudflare ecosystem.
 
-## Reason
+**Status:** Approved
 
-Provides an integrated ecosystem including:
+## Decision 002 — React Frontend
 
-- Pages
-- Workers
-- D1
-- R2
-- KV
+React is the standard FSOS frontend framework.
 
-This minimizes operational complexity while remaining scalable.
+**Status:** Approved
 
-## Alternatives Considered
+## Decision 003 — D1 Authoritative Record Storage
 
-- VPS
-- Firebase
-- Supabase
+D1 is the authoritative server-side source of truth for structured FSOS records.
 
-## Status
+**Reason:** The previous Worker memory store was volatile. D1 persistence and synchronization are now verified.
 
-Approved
+**Status:** Approved
 
----
+## Decision 004 — Workers Production Runtime
 
-# Decision 002
+FSOS production uses Cloudflare Workers. Pages is not the production backend/deployment target.
 
-## Decision
+**Reason:** Pages and Workers are separate deployment pipelines; confusing them previously caused investigation drift.
 
-React is the standard frontend framework.
+**Status:** Approved
 
-## Reason
+## Decision 005 — Modular Workspaces
 
-React provides a mature component architecture suitable for long-term engineering projects and aligns with existing project development.
+FSOS remains modular across Dashboard, Mission Control, Machine Passport, MHC, Report Studio, Contract Management, Planner, and Settings.
 
-## Status
+**Status:** Approved
 
-Approved
+## Decision 006 — Offline Capability
 
----
+Offline capability remains a long-term requirement.
 
-# Decision 003
+**Status:** Planned
 
-## Decision
+## Decision 007 — Multi-Device Synchronization
 
-Cloudflare D1 is the primary relational database.
+Cloud synchronization is a core capability and must remain reliable across devices.
 
-## Reason
+**Status:** Verified foundation
 
-Provides managed SQLite-based relational storage integrated with Cloudflare Workers.
+## Decision 008 — AI-Assisted Engineering
 
-## Status
+Atlas provides architecture, investigation, governance, and prompts. Mikasa implements approved work.
 
-Approved
+**Status:** Approved
 
----
+## Decision 009 — Quality Before Speed
 
-# Decision 004
+Engineering quality takes priority over development speed. Urgency does not justify unsupported assumptions.
 
-## Decision
+**Status:** Approved
 
-Engineering-OS governs the project.
+## Decision 010 — Free-First Infrastructure
 
-## Reason
+FSOS will prefer existing/free/open-source infrastructure before paid services.
 
-FSOS follows Engineering-OS standards for:
+Any billable service requires explicit Founder approval after cost, growth, retention, and migration impact are understood.
 
-- Documentation
-- Prompt engineering
-- Repository organization
-- Engineering workflow
-- Architectural consistency
+**Status:** Approved
 
-Project-specific decisions must not conflict with Engineering-OS Core principles.
+## Decision 011 — Image Persistence Deferred
 
-## Status
+R2 was identified as a technically suitable candidate for durable image storage, but it was not activated because it introduces a usage-based storage dependency.
 
-Approved
+The next step is to evaluate genuinely free/no-billing alternatives first.
 
----
+**Status:** Deferred
 
-# Decision 005
+## Decision 012 — Future Standalone Client
 
-## Decision
+FSOS may evolve from browser-first to standalone desktop software using a local database and the existing sync architecture.
 
-The application is designed around modular engineering workspaces.
+**Status:** Future
 
-## Modules
+## Pending Decisions
 
-- Dashboard
-- Mission Control
-- Machine Passport
-- Machine Health Check
-- Report Studio
-- Contract Management
-- Planner
-- Settings
-
-## Reason
-
-Independent modules reduce coupling, simplify maintenance, and allow incremental feature development.
-
-## Status
-
-Approved
-
----
-
-# Decision 006
-
-## Decision
-
-Offline capability is a long-term requirement.
-
-## Reason
-
-Field engineers may operate in environments with unreliable or unavailable internet connectivity.
-
-Future desktop deployments should continue operating without network access and synchronize when connectivity returns.
-
-## Status
-
-Planned
-
----
-
-# Decision 007
-
-## Decision
-
-Cloud synchronization is a core capability.
-
-## Reason
-
-The same engineer may use multiple devices, requiring consistent project data across desktop and laptop environments.
-
-Synchronization should be reliable, predictable, and recover gracefully from conflicts.
-
-## Status
-
-In Progress
-
----
-
-# Decision 008
-
-## Decision
-
-Engineering documentation is maintained alongside the project.
-
-## Reason
-
-Knowledge should remain with the project rather than individual developers.
-
-Documentation reduces onboarding time, preserves architectural intent, and improves long-term maintainability.
-
-## Status
-
-Approved
-
----
-
-# Decision 009
-
-## Decision
-
-AI-assisted development is part of the engineering workflow.
-
-## Reason
-
-Atlas provides architecture, planning, engineering standards, and documentation.
-
-Mikasa focuses on implementation.
-
-Each role has a clearly defined responsibility.
-
-## Status
-
-Approved
-
----
-
-# Decision 010
-
-## Decision
-
-Engineering quality takes priority over development speed.
-
-## Reason
-
-Short-term shortcuts often increase long-term maintenance costs.
-
-Major engineering decisions should be evaluated before implementation.
-
-## Status
-
-Approved
-
----
-
-# Pending Decisions
-
-The following topics require future evaluation:
-
-- Desktop framework (Electron vs Tauri)
+- Image persistence architecture
 - Authentication strategy
-- User roles and permissions
+- User roles/permissions
 - Multi-customer architecture
-- Backup and disaster recovery
+- Backup/disaster recovery
 - Notification system
 - Audit logging
 - API versioning
+- Desktop framework selection
 
----
+## Superseded Decisions
 
-# Superseded Decisions
-
-Reserved for future use.
-
-When an approved decision is replaced, record:
-
-- Original decision
-- Replacement
-- Reason for change
-- Effective version
-
-Engineering history should never be deleted.
-
----
-
-# Related Documents
-
-- Project.md
-- Architecture.md
-- Roadmap.md
-- Engineering Principles
-- Prompt Enhancement Principle 01
-
----
-
-# Revision Policy
-
-This document is a living engineering record.
-
-Every major architectural or technical decision should be documented before implementation whenever practical.
+When an approved decision is replaced, retain the original decision, replacement, reason, effective version, and migration impact.

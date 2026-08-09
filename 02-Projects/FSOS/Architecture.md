@@ -1,309 +1,127 @@
 # FSOS Architecture
 
-# System Status
+## System Status
 
-## Status
+- **Status:** Active Development
+- **Verified Version:** v1.0.14
+- **Architecture Owner:** Atlas
 
-Active Development
+## Purpose
 
-## Version
+This document is the architectural source of truth for FSOS structure and responsibility boundaries.
 
-v0.9.x
+## Design Principles
 
-## Architecture Owner
-
-Atlas
-
----
-
-# Purpose
-
-This document defines the overall architecture of the Field Service Operations System (FSOS).
-
-It serves as the single source of truth for how the system is structured, how modules interact, and how future development should evolve.
-
-Every implementation should follow this architecture unless a documented architectural decision supersedes it.
-
----
-
-# Design Principles
-
-FSOS is built around the following principles:
-
-- Offline-first where practical
-- Cloud synchronization across devices
-- Modular architecture
+- Durable server-side source of truth for operational records
+- Reliable multi-device synchronization
+- Offline capability where practical
+- Modular workspaces
 - Predictable workflows
-- Professional engineering experience
-- Scalable feature development
-- Single source of truth for operational data
-
----
-
-# High-Level Architecture
-
-```
-                User
-
-                  │
-
-        React Frontend (Pages)
-
-                  │
-
-        Cloudflare Workers API
-
-                  │
-
-        Business Logic Layer
-
-                  │
-
-        Cloudflare D1 Database
-
-                  │
-
-          Report Storage (R2)
-
-```
-
----
-
-# Core Modules
-
-## Dashboard
-
-Responsibilities
-
-- Daily overview
-- Mission summary
-- Upcoming work
-- Notifications
-
----
-
-## Mission Control
-
-Responsibilities
-
-- Active work execution
-- Step-by-step workflow
-- Progress tracking
-- SOP guidance
-
----
-
-## Machine Passport
-
-Responsibilities
-
-- Machine information
-- Machine specifications
-- Service history
-- Installed components
-- Laser information
-
----
-
-## Machine Health Check
-
-Responsibilities
-
-- Inspection workflow
-- Parameter recording
-- Before / After comparison
-- Measurement logging
-- Image attachment
-
----
-
-## Report Studio
-
-Responsibilities
-
-- Report generation
-- Executive PDF
-- Customer reports
-- Engineering reports
-- Export management
-
----
-
-## Contract Management
-
-Responsibilities
-
-- Contract overview
-- SLA tracking
-- Remaining contract days
-- Quarterly schedule
-- Customer commitments
-
----
-
-## Planner
-
-Responsibilities
-
-- Engineering schedule
-- Mission planning
-- Calendar
-- Resource planning
-
----
-
-## Sync Engine
-
-Responsibilities
-
-- Device synchronization
-- Conflict handling
-- Upload queue
-- Download queue
-- Offline recovery
-
----
-
-## Settings
-
-Responsibilities
-
-- User preferences
-- Theme
-- Synchronization
-- System configuration
-
----
-
-# Data Flow
-
-Field Engineer
-
-↓
-
-Mission
-
-↓
-
-Machine Passport
-
-↓
-
-Machine Health Check
-
-↓
-
-Report Studio
-
-↓
-
-Customer Delivery
-
-↓
-
-History
-
----
-
-# Technology Stack
-
-Frontend
-
-- React
-
-Backend
-
-- Cloudflare Workers
-
-Hosting
-
-- Cloudflare Pages
-
-Database
-
-- Cloudflare D1
-
-Object Storage
-
-- Cloudflare R2
-
-Configuration
-
-- Cloudflare KV (Future)
-
-Offline Database
-
-- SQLite (Future Desktop)
-
-Version Control
-
-- Git
-- GitHub
-
----
-
-# Future Desktop Architecture
-
-Desktop Application
-
-↓
-
-SQLite
-
-↓
-
-Sync Engine
-
-↓
-
-Cloudflare Workers
-
-↓
-
-Cloudflare D1
-
----
-
-# Engineering Rules
-
-Every module should have:
-
-- Single responsibility
-- Clear ownership
-- Independent evolution
 - Minimal coupling
-- Shared design language
+- Future desktop portability
 
----
+## High-Level Architecture
 
-# Out of Scope
+```text
+                    User
+                     │
+              React + Vite UI
+                     │
+          Cloudflare Worker Runtime
+                     │
+            API / Sync / Logic
+                     │
+                Cloudflare D1
+                     │
+       Durable structured operational data
 
-Architecture should not contain:
+Image Evidence (current)
+        │
+        └── Browser IndexedDB only  ← pending replacement
 
-- Sprint planning
-- Feature requests
-- Bug tracking
-- Implementation details
+Future Image Architecture
+        │
+        └── Approved object storage / free alternative
 
-Those belong in their respective project documents.
+Future Desktop
+        │
+        └── Tauri or Electron
+                │
+             SQLite
+                │
+           Sync Engine
+                │
+        Cloudflare Worker
+                │
+                D1
+```
 
----
+## Production Deployment
 
-# Related Documents
+FSOS production target is **Cloudflare Workers**, not Pages.
 
-- Project.md
-- Decisions.md
-- Roadmap.md
-- Engineering Principles
-- Cloudflare
-- Workers
-- D1
-- Git
+Deployment chain:
 
----
+**GitHub → Cloudflare Worker build/deployment → Worker runtime → workers.dev**
 
-# Revision Policy
+Cloudflare Pages may be used by other projects, but it is not the FSOS production deployment path.
 
-Architecture evolves through approved engineering decisions.
+## Core Modules
 
-Major architectural changes must be reflected in this document before implementation.
+### Dashboard
+Daily overview, mission summary, upcoming work, and notifications.
+
+### Mission Control
+Active work execution, workflow progression, and SOP guidance.
+
+### Machine Passport
+Machine information, specifications, service history, components, and laser information.
+
+### Machine Health Check
+Inspection workflow, parameter recording, before/after comparison, measurements, and image evidence.
+
+### Report Studio
+Executive/customer/engineering report generation and export.
+
+### Contract Management
+Contract overview, SLA tracking, quarterly schedule, and customer commitments.
+
+### Planner
+Engineering schedule, mission planning, calendar, and resources.
+
+### Sync Engine
+Device synchronization, queued changes, conflict handling, offline recovery, and reconciliation.
+
+## Data Ownership
+
+| Data | Authoritative Location |
+|---|---|
+| Operational records | D1 |
+| Sync state/queue | Client + Worker/D1 synchronization flow |
+| Current image payloads | Browser IndexedDB (temporary limitation) |
+| Future image payloads | To be selected after free-first evaluation |
+| Desktop local data | Future SQLite |
+
+## Architectural Rules
+
+- Do not use Worker memory as durable state.
+- Do not store binary image payloads in D1 unless explicitly justified.
+- Do not introduce R2 or another paid-capable storage service without Founder approval.
+- Keep UI, API, persistence, and sync responsibilities separated.
+- Major architectural changes require an explicit decision record.
+
+## Future Desktop Architecture
+
+```text
+Standalone Desktop Client
+        ↓
+Local SQLite
+        ↓
+Sync Engine
+        ↓
+Cloudflare Worker
+        ↓
+D1
+```
+
+The desktop migration is a future evolution and must not destabilize the current web deployment.

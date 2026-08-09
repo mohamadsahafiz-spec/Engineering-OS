@@ -1,171 +1,77 @@
 # Cloudflare Workers
 
-# Technology Status
+## Technology Status
 
-Current Usage
-
-Not Yet Used
-
-Adoption Priority
-
-Future Projects
-
-Learning Priority
+- **Current Usage:** Active
+- **FSOS Production:** Yes
+- **Adoption:** Production
+- **Learning Priority:** High
 
 ## Purpose
 
-This document serves as the Engineering-OS decision guide for Cloudflare Workers.
+Workers are the FSOS backend/runtime layer and should remain responsible for API requests, business logic, validation, and access to bound Cloudflare services.
 
-It explains when Workers should be used, when they should not, and how they fit within modern cloud architectures.
+## FSOS Responsibilities
 
-This document focuses on engineering decisions rather than platform documentation.
+Workers currently provide:
 
----
+- API endpoints
+- D1 persistence and queries
+- Synchronization endpoints
+- Runtime health/status
+- Production deployment target
 
-# Overview
+R2 image storage is not currently active.
 
-Cloudflare Workers provide serverless JavaScript and TypeScript execution at Cloudflare's global edge network.
+## Deployment Identity
 
-Workers are intended for lightweight backend logic that benefits from low latency, rapid deployment, and global availability.
+A Worker deployment is not considered verified from a successful build alone.
 
----
+Verify the chain:
 
-# Primary Responsibilities
+**GitHub commit → Cloudflare build/deployment → Worker version metadata → live endpoint**
 
-Typical Worker responsibilities include:
+Runtime metadata should expose enough information to identify the deployed application version and Cloudflare deployment/version identity where practical.
 
-- REST APIs
-- Authentication
-- Authorization
-- Data validation
-- Cloudflare D1 access
-- R2 access
-- KV access
-- Request routing
-- Business logic
-- Webhook handling
-
-Workers should remain focused on backend responsibilities.
-
----
-
-# When to Use
-
-Use Workers when:
-
-✓ Building APIs
-
-✓ Processing HTTP requests
-
-✓ Running lightweight backend logic
-
-✓ Accessing D1
-
-✓ Authenticating users
-
-✓ Integrating external services
-
-✓ Returning JSON responses
-
----
-
-# When NOT to Use
-
-Avoid Workers when:
-
-✗ Long-running jobs
-
-✗ Heavy CPU computation
-
-✗ Video rendering
-
-✗ Machine learning inference
-
-✗ Large background processing
-
-✗ Desktop application logic
-
-Choose architecture according to workload.
-
----
-
-# Best Practices
+## Best Practices
 
 - Keep Workers stateless.
-- Keep functions small.
-- Validate every request.
-- Return consistent JSON.
-- Handle errors gracefully.
-- Separate routing from business logic.
-- Keep secrets outside source code.
+- Store durable application data in the appropriate bound service.
+- Validate requests.
+- Return explicit errors; never report false success after a failed persistence operation.
+- Keep secrets out of source code.
+- Keep configuration and bindings reproducible.
+- Verify production independently after deployment.
 
----
+## Common Mistakes
 
-# Common Mistakes
+- Treating Workers as traditional persistent servers.
+- Assuming in-memory state is durable.
+- Debugging frontend symptoms before checking the API.
+- Confusing Pages deployment with Workers deployment.
+- Changing package dependencies before proving the build/deployment divergence.
 
-- Treating Workers like traditional servers.
-- Returning inconsistent response formats.
-- Mixing frontend logic into Workers.
-- Ignoring request validation.
-- Overloading a single Worker with unrelated responsibilities.
+## Lessons Learned
 
----
+### Deployment Pipeline Separation
 
-# Lessons Learned
+Pages and Workers are separate deployment pipelines. Always identify which pipeline is failing before changing code.
 
-## Lesson 001
+### Runtime Verification
 
-Workers should own APIs.
+A successful deployment must be followed by a runtime/API check when the deployment affects production behaviour.
 
-Pages should own frontend hosting.
+## Decision Matrix
 
-Keep responsibilities separate.
+Need backend API? → Workers
 
----
+Need SQL storage? → D1
 
-## Lesson 002
+Need object storage? → R2 after approval
 
-Always verify API routes independently before debugging frontend code.
+Need frontend hosting? → Pages only when that project uses Pages
 
-Server issues and frontend issues should be isolated.
-
----
-
-## Lesson 003
-
-CORS should be designed intentionally.
-
-Never assume browser behaviour.
-
-Verify OPTIONS, GET, POST and error responses independently.
-
----
-
-# Decision Matrix
-
-Need backend API?
-
-→ Workers
-
-Need static frontend?
-
-→ Pages
-
-Need SQL database?
-
-→ D1
-
-Need object storage?
-
-→ R2
-
-Need key/value storage?
-
-→ KV
-
----
-
-# Related Documents
+## Related Documents
 
 Cloudflare.md
 
@@ -174,13 +80,3 @@ Pages.md
 D1.md
 
 R2.md
-
-KV.md
-
----
-
-# Revision Policy
-
-Every Worker-related engineering experience should improve this document.
-
-Document practical engineering knowledge rather than generic platform documentation.

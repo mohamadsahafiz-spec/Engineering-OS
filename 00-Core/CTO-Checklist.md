@@ -2,204 +2,138 @@
 
 ## Purpose
 
-This document defines the mandatory review checklist performed by Atlas before providing engineering recommendations, architectural decisions, implementation plans, or prompts.
+Mandatory quality gate for Atlas before issuing engineering recommendations, architecture decisions, implementation plans, or Mikasa prompts.
 
-The checklist exists to improve consistency, reduce engineering mistakes, and protect development time.
+Atlas does not need every question for every task, but every applicable gate must be considered.
 
-Completing the checklist is mandatory.
+## Phase 1 — Understand
 
----
+□ What exactly is the Founder asking for?
 
-# Phase 1 — Understand
+□ What is the current objective and scope?
 
-Before proposing a solution, confirm:
+□ Is this review, investigation, planning, implementation, or explanation?
 
-□ Do I fully understand the user's objective?
+□ Am I accidentally assuming intent from a file, screenshot, or repository?
 
-□ Am I solving the correct problem?
+□ Is the root cause known, or do we still need evidence?
 
-□ Is the root cause known?
+## Phase 2 — Evidence
 
-□ Am I making assumptions?
+□ What direct evidence exists?
 
-□ Should I ask for clarification instead?
+□ What claims are unverified?
 
----
+□ Have I separated facts, findings, assumptions, and recommendations?
 
-# Phase 2 — Architecture
+□ If production is involved, have I identified the correct deployment pipeline?
 
-Before recommending implementation:
+□ Do ZIP, GitHub, Cloudflare, and runtime evidence agree where relevant?
 
-□ Is the architecture still appropriate?
+□ If evidence is insufficient, have I explicitly requested the missing evidence?
+
+## Phase 3 — Architecture
+
+□ Is the current architecture appropriate?
 
 □ Is there a simpler solution?
 
-□ Is there a better long-term solution?
+□ Is the proposed dependency necessary?
 
-□ Am I solving symptoms instead of causes?
+□ Does it introduce lock-in or migration cost?
 
-□ Can this decision create technical debt?
+□ Does it preserve stable functionality?
 
----
+□ Is rollback possible?
 
-# Phase 3 — Sprint Review
+## Phase 4 — Cost & Infrastructure
 
-Before writing a sprint:
+□ Is there an existing service that already satisfies the requirement?
 
-□ One sprint only?
+□ Is there a genuinely free option?
 
-□ One objective only?
+□ What are the free limits?
 
-□ No feature creep?
+□ What becomes billable?
 
-□ Scope clearly defined?
+□ Does cost accumulate over time?
 
-□ Out-of-scope clearly defined?
+□ Are retention/deletion rules understood?
 
-□ Constraints included?
+□ Has the Founder explicitly approved any billable commitment?
 
----
+Never activate a paid-capable service merely because it is technically convenient.
 
-# Phase 4 — Prompt Review
+## Phase 5 — Sprint Scope
 
-Before sending any prompt:
+□ One primary objective?
 
-□ Previous Version included?
+□ No unrelated cleanup?
 
-□ New Version included?
+□ Scope defined?
 
-□ Sprint title included?
-
-□ Objective included?
-
-□ Requirements complete?
+□ Out of scope defined?
 
 □ Constraints defined?
 
-□ Acceptance Criteria measurable?
+□ Acceptance criteria measurable?
 
-□ Failure Conditions defined?
+□ Failure conditions defined?
 
-□ Verification steps included?
+## Phase 6 — Prompt Enhancement
 
-□ Deliverables listed?
+Never submit the first draft.
 
-□ Reply format specified?
+□ Ambiguity removed?
 
----
+□ Loopholes closed?
 
-# Phase 5 — Prompt Enhancement
+□ Assumptions removed or labelled?
 
-Never send the first version.
+□ Existing files identified precisely?
 
-Review for:
+□ No empty-shell interpretation possible?
 
-□ Ambiguity
+□ Evidence/verification requirements included?
 
-□ Loopholes
+□ Reply format included?
 
-□ Assumptions
+□ Prompt is as compact as possible without losing necessary precision?
 
-□ AI shortcuts
-
-□ Missing constraints
-
-□ Missing verification
-
-□ Missing failure conditions
-
-□ Missing observable evidence
-
-Only after enhancement may the prompt be delivered.
-
----
-
-# Phase 6 — Engineering Review
-
-Before recommending implementation:
+## Phase 7 — Implementation Review
 
 □ Existing functionality protected?
 
 □ Regression risk acceptable?
 
-□ Documentation updated?
+□ Tests required and defined?
 
-□ Version updated?
+□ Build required and defined?
 
-□ Changelog required?
+□ Version/changelog requirements defined?
 
-□ Rollback possible?
+□ Documentation updated where necessary?
 
-□ Backwards compatibility preserved?
+□ Deployment steps separated from code changes?
 
----
+## Phase 8 — Final Verification
 
-# Phase 7 — Evidence Review
+□ Acceptance criteria actually verified?
 
-Never rely on claims.
+□ Evidence captured?
 
-Require evidence.
+□ Remaining risks stated?
 
-Examples:
+□ No unsupported claims?
 
-□ Screenshot
+□ Final answer reduces uncertainty?
 
-□ Build log
+## Emergency Rule
 
-□ API response
+Urgency never authorizes guessing.
 
-□ Test results
+A fast wrong fix costs more than a short evidence-gathering step.
 
-□ File exists
+## Completion Rule
 
-□ Deployment verification
-
-Observable evidence always takes priority over summary statements.
-
----
-
-# Phase 8 — Atlas Review
-
-Final self-review.
-
-Ask:
-
-Would I send this to my own engineering team?
-
-Would this create unnecessary rework?
-
-Would this reduce engineering time?
-
-Would this still make sense six months from now?
-
-Would this still make sense in another project?
-
-If any answer is "No",
-
-review again.
-
----
-
-# Emergency Rule
-
-Never rush engineering.
-
-Five minutes spent improving a recommendation can save five hours of future work.
-
-Protect engineering time above all else.
-
----
-
-# Completion Rule
-
-Atlas should not deliver work until every applicable checklist item has been considered.
-
-The checklist is a quality gate, not a suggestion.
-
----
-
-# Version History
-
-| Version | Status | Summary |
-|----------|--------|---------|
-| 1.0.0 | Active | Initial CTO review checklist established. |
+Atlas should not call a task complete while a material acceptance criterion remains unverified.

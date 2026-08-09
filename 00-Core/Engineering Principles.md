@@ -2,214 +2,97 @@
 
 ## Purpose
 
-This document defines the engineering philosophy used across Engineering-OS.
+These principles govern engineering work across Engineering-OS. They apply to architecture, code, infrastructure, documentation, prompts, deployments, and operational decisions.
 
-Every software project, document, architecture review, prompt, and engineering decision should follow these principles unless an exception is explicitly approved.
+## Principles
 
----
+### 1 — Solve Root Causes
 
-# Principle 1 — Solve Root Causes
+Identify and remove the underlying cause whenever practical. A symptom fix is not a root-cause fix.
 
-Never implement temporary fixes when the underlying cause can be removed.
+### 2 — Verify, Never Assume
 
-Always ask:
+A successful claim requires observable evidence: tests, logs, API responses, build output, screenshots, file inspection, or equivalent proof.
 
-- Why did this happen?
-- What allowed it to happen?
-- Can the system be redesigned so it never happens again?
+### 3 — Evidence Before Action
 
-Engineering time spent eliminating root causes compounds over the lifetime of a project.
+When investigating a failure, follow:
 
----
+**Evidence → Analysis → Root Cause → Fix → Verification**
 
-# Principle 2 — Simplicity Before Complexity
+If evidence is insufficient, investigate before changing the system.
 
-Prefer the simplest architecture capable of satisfying current requirements.
+### 4 — Protect Stable Foundations
 
-Avoid:
+Deployment, persistence, synchronization, security, backups, and recovery are foundations. Do not destabilize working foundations to accelerate feature development.
 
-- unnecessary abstractions
-- premature optimization
-- speculative features
-- over-engineering
+### 5 — One Source of Truth
 
-Complexity must always justify its existence.
+Do not maintain competing authoritative versions of the same fact. Reconcile documentation and configuration drift when discovered.
 
----
+### 6 — Simplicity Before Complexity
 
-# Principle 3 — Build Strong Foundations
+Prefer the smallest maintainable solution. Avoid speculative abstractions, dependencies, infrastructure, and features.
 
-Features should never be prioritized over foundations.
+### 7 — Free-First Infrastructure
 
-Foundations include:
+Use existing and free options before paid services. Before any billable commitment, establish:
 
-- architecture
-- documentation
-- testing
-- deployment
-- versioning
-- backups
-- recovery
-- monitoring
+- what is free;
+- what becomes billable;
+- fixed and usage-based pricing;
+- how costs grow over time;
+- retention/deletion behaviour;
+- how the dependency can be removed later.
 
-A stable foundation reduces future development cost.
+Paid infrastructure requires explicit Founder approval.
 
----
+### 8 — Explicit Over Implicit
 
-# Principle 4 — Documentation Is Engineering
+State requirements, assumptions, inputs, outputs, dependencies, limitations, and acceptance criteria explicitly.
 
-Documentation is part of the product.
+### 9 — Repeatability
 
-If knowledge exists only in someone's memory, the project is incomplete.
+A process is not production-ready if success depends on undocumented manual steps or personal memory.
 
-Every important decision should eventually become documented.
+### 10 — Incremental and Reversible Change
 
----
+Prefer small changes with clear rollback paths. Separate unrelated work.
 
-# Principle 5 — Explicit Over Implicit
+### 11 — Technical Debt Is Visible
 
-Avoid assumptions.
+Record meaningful debt, unresolved risks, and deferred architecture decisions. Do not hide them inside optimistic status labels.
 
-Prefer systems that explicitly state:
+### 12 — Maintainability Over Cleverness
 
-- requirements
-- inputs
-- outputs
-- dependencies
-- limitations
+Future engineers should understand the system without its original author.
 
-Explicit systems are easier to maintain.
+### 13 — Change Control
 
----
+No unrelated cleanup, speculative refactor, dependency upgrade, schema change, or infrastructure change should be bundled into a focused task without explicit justification.
 
-# Principle 6 — Predictability
+### 14 — Deployment Identity Matters
 
-Every process should produce repeatable results.
+For deployment-sensitive work, verify the chain:
 
-A predictable process is preferable to a clever one.
+**Source commit → Cloudflare build/deployment → runtime version/identity → live endpoint**
 
----
+Never use a successful Pages deployment as evidence that a Workers deployment succeeded, or vice versa.
 
-# Principle 7 — Verify, Never Assume
+### 15 — Cost Is an Architectural Constraint
 
-Completion must always be verified.
+A technically elegant service can still be the wrong solution if its long-term cost or lock-in violates project constraints.
 
-Success should be observable through evidence.
+### 16 — Future Migration Must Remain Possible
 
-Examples:
+When choosing infrastructure, avoid unnecessary coupling that would make a later migration disproportionately expensive.
 
-- file exists
-- API returns expected response
-- deployment succeeds
-- tests pass
-- documentation renders correctly
+### 17 — Documentation Must Match Reality
 
----
+Status labels, architecture diagrams, version numbers, and technology notes must reflect the verified current state.
 
-# Principle 8 — One Source of Truth
+## Engineering Maxim
 
-Every important piece of information should have one authoritative location.
+Optimize for total lifetime cost: engineering time + operational risk + infrastructure cost + future migration cost.
 
-Avoid duplicated documentation.
-
-Avoid conflicting documentation.
-
----
-
-# Principle 9 — Incremental Progress
-
-Large projects should be divided into small, reviewable milestones.
-
-Every sprint should leave the project in a better state than before.
-
----
-
-# Principle 10 — Technical Debt Is Visible Debt
-
-Technical debt should be recorded.
-
-Ignoring debt compounds future engineering costs.
-
-Every project should maintain a visible backlog of technical debt.
-
----
-
-# Principle 11 — Optimize for Maintainability
-
-Future engineers should understand the system without requiring its original author.
-
-Readable systems outperform clever systems.
-
----
-
-# Principle 12 — Engineering Before Aesthetics
-
-Correctness
-
-↓
-
-Reliability
-
-↓
-
-Maintainability
-
-↓
-
-Performance
-
-↓
-
-User Experience
-
-↓
-
-Visual Polish
-
-Visual quality matters.
-
-Engineering integrity matters more.
-
----
-
-# Principle 13 — Failure Must Be Safe
-
-Systems should fail predictably.
-
-Unexpected failure is worse than graceful degradation.
-
-Always design recovery paths.
-
----
-
-# Principle 14 — Prompt Engineering Is Engineering
-
-AI prompts are engineering artifacts.
-
-Prompts should be:
-
-- versioned
-- reviewed
-- improved
-- documented
-- reusable
-
-Treat prompts with the same discipline as source code.
-
----
-
-# Principle 15 — Continuous Improvement
-
-Every mistake becomes future documentation.
-
-Every bug becomes engineering knowledge.
-
-Every incident becomes a lesson.
-
-Engineering-OS continuously evolves through accumulated experience.
-
----
-
-# Engineering Golden Rule
-
-Build systems that are easier to understand tomorrow than they are today.
+A shortcut that saves five minutes today but creates five hours of future work is not efficient.

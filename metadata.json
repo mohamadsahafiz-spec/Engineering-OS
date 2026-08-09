@@ -1,6 +1,6 @@
 {
-  "name": "Atlas-OS",
-  "description": "Atlas Operating System Foundation - documentation-only engineering operating system.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "name": "Engineering-OS",
+  "version": "1.2.0",
+  "description": "Atlas Engineering Operating System: evidence-driven governance, decision-making, prompt engineering, project architecture, and engineering knowledge.",
+  "requestFramePermissions": []
 }

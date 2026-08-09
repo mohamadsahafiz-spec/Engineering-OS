@@ -1,73 +1,37 @@
 # FSOS Roadmap
 
-# Document Status
+## Document Status
 
-## Status
+- **Status:** Living Document
+- **Verified Version:** v1.0.14
+- **Owner:** Atlas
 
-Living Document
+## Product Vision
 
-## Version
+Build a premium engineering operations platform that enables field engineers to execute work, manage machine data, generate professional reports, and synchronize information reliably across devices.
 
-v0.9.x
-
-## Owner
-
-Atlas
-
----
-
-# Purpose
-
-This roadmap defines the planned evolution of the Field Service Operations System (FSOS).
-
-It provides a high-level view of development priorities, major milestones, and long-term objectives. The roadmap guides engineering direction rather than acting as a sprint backlog.
-
----
-
-# Product Vision
-
-Build a premium engineering operations platform that enables field engineers to efficiently execute work, manage machine data, generate professional reports, and synchronize information seamlessly across multiple devices.
-
-The goal is to become an engineering operating platform rather than a traditional maintenance application.
-
----
-
-# Development Principles
-
-Development follows these priorities:
+## Development Priorities
 
 1. Stability before expansion.
-2. Complete existing modules before adding new ones.
-3. Engineering workflow before visual refinement.
+2. Foundations before features.
+3. Verified reliability before optimization.
 4. Documentation alongside implementation.
-5. Every release should improve reliability.
+5. Free-first infrastructure unless a paid dependency is explicitly justified and approved.
 
----
+## Phase 1 — Foundation
 
-# Phase 1 — Foundation
+**Status: Verified Green**
 
-Status
-
-Completed
-
-Objectives
-
-- Engineering-OS foundation
 - Repository standards
-- Documentation standards
-- Prompt engineering standards
-- Knowledge base
-- Core architecture
+- Engineering-OS governance
+- Cloudflare Workers deployment
+- D1 persistence
+- Synchronization foundation
+- Runtime/deployment verification
 
----
+## Phase 2 — Core Platform
 
-# Phase 2 — Core Platform
-
-Status
-
-In Progress
-
-Objectives
+**Status: Active Development**
 
 - Dashboard
 - Mission Control
@@ -77,45 +41,19 @@ Objectives
 - Report Studio
 - Contract Management
 
-Success Criteria
+## Phase 3 — Operational Excellence
 
-- Stable navigation
-- Consistent UI
-- Modular architecture
-- Reliable engineering workflow
+**Status: Planned**
 
----
-
-# Phase 3 — Operational Excellence
-
-Status
-
-Planned
-
-Objectives
-
-- Improved synchronization
-- Better report generation
 - Workflow optimization
-- Advanced search
+- Report improvements
+- Search
 - Performance improvements
 - Engineering analytics
 
-Success Criteria
+## Phase 4 — Offline Capability
 
-- Faster workflow
-- Reduced manual work
-- Higher operational efficiency
-
----
-
-# Phase 4 — Offline Capability
-
-Status
-
-Planned
-
-Objectives
+**Status: Future**
 
 - Local database
 - Offline mode
@@ -123,49 +61,33 @@ Objectives
 - Conflict resolution
 - Recovery mechanisms
 
-Potential Technologies
+Potential technologies:
 
 - SQLite
 - Sync Engine
 - Cloudflare Workers
 - D1
 
-Success Criteria
+## Phase 5 — Desktop Platform
 
-- Full offline operation
-- Reliable synchronization
-- Seamless user experience
+**Status: Future — not current scope**
 
----
-
-# Phase 5 — Desktop Platform
-
-Status
-
-Future
-
-Objectives
-
-- Native desktop application
-- Improved performance
+- Standalone desktop application
 - Local storage
 - Native OS integration
+- Improved offline capability
 
-Potential Technologies
+Potential technologies:
 
 - Tauri
-- Electron (Evaluation)
+- Electron evaluation
 - SQLite
 
----
+The web → standalone transition must preserve the existing Worker/D1 synchronization architecture wherever practical.
 
-# Phase 6 — Intelligence
+## Phase 6 — Intelligence
 
-Status
-
-Future
-
-Objectives
+**Status: Future**
 
 - Predictive maintenance
 - Engineering insights
@@ -173,83 +95,16 @@ Objectives
 - AI-assisted reporting
 - Smart recommendations
 
----
+## Current Priority
 
-# Future Enhancements
+**Resolve durable image persistence without introducing an unapproved recurring storage cost.**
 
-Potential future capabilities include:
+Current image evidence is browser-local. The next architecture decision must compare genuinely free/no-billing options before activating R2 or another paid-capable service.
 
-- Multi-user collaboration
-- Role-based permissions
-- Customer portal
-- Mobile companion
-- Digital signatures
-- Barcode / QR integration
-- Spare parts inventory
-- Notification center
-- Audit trail
-- Equipment lifecycle management
+## Release Philosophy
 
-Items remain under evaluation and are not committed until approved.
+Each release should provide measurable improvement in reliability, usability, maintainability, performance, or engineering efficiency.
 
----
+## Revision Policy
 
-# Current Priorities
-
-Highest priority items are:
-
-- Stabilize engineering workflow
-- Complete Machine Health Check
-- Complete Report Studio
-- Improve synchronization
-- Prepare Founder Release
-
----
-
-# Release Philosophy
-
-FSOS follows an iterative release model.
-
-Each version should deliver measurable improvements in:
-
-- Reliability
-- Usability
-- Maintainability
-- Performance
-- Engineering efficiency
-
-Features should not be released until they meet Engineering-OS quality standards.
-
----
-
-# Success Metrics
-
-Progress should be evaluated using:
-
-- Feature completion
-- Stability
-- Synchronization reliability
-- Report generation success
-- Workflow efficiency
-- User satisfaction
-- Maintainability
-
----
-
-# Related Documents
-
-- Project.md
-- Architecture.md
-- Decisions.md
-- Engineering Principles
-- Sprint History
-
----
-
-# Revision Policy
-
-This roadmap is a living document.
-
-Priorities may evolve as engineering requirements, customer needs, and operational experience develop.
-
-Completed milestones should remain documented to preserve project history.
+Update this roadmap when a milestone or major architectural direction changes. Keep sprint-level tasks elsewhere.

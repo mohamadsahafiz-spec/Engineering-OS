@@ -1,173 +1,70 @@
 # Cloudflare
 
-# Technology Status
+## Technology Status
 
-Current Usage
-
-Not Yet Used
-
-Adoption Priority
-
-Future Projects
-
-Learning Priority
+- **Current Usage:** Active across FSOS
+- **FSOS Production Runtime:** Cloudflare Workers
+- **FSOS Database:** Cloudflare D1
+- **FSOS Pages:** Not the production deployment target
+- **FSOS R2:** Not activated; under evaluation for image persistence
+- **FSOS KV:** Not currently required
 
 ## Purpose
 
-This document serves as the Engineering-OS decision guide for Cloudflare products and services.
+This is the Engineering-OS decision guide for Cloudflare. It records practical architecture and operational knowledge rather than reproducing vendor documentation.
 
-It focuses on engineering decisions rather than product documentation.
+## FSOS Deployment Rule
 
-The objective is to help determine when Cloudflare is the correct solution, when it is not, and how it should be integrated into software projects.
+For FSOS, the production chain is:
 
----
+**GitHub → Cloudflare Workers build/deployment → Worker runtime → workers.dev**
 
-# Overview
+Cloudflare Pages may exist in an account or historical investigation, but a green Pages deployment is not evidence that the FSOS Worker deployment succeeded.
 
-Cloudflare provides edge computing, networking, security, storage, and deployment services.
+## Deployment Investigation
 
-Engineering-OS primarily uses Cloudflare for:
+When Cloudflare behaviour is wrong, first identify the failing pipeline. Then verify:
 
-- Static site hosting
-- Workers
-- D1
-- R2
-- KV
-- DNS
-- CDN
-- Edge security
+1. GitHub commit
+2. Cloudflare cloned/build commit
+3. Build settings and commands
+4. Wrangler configuration
+5. package.json/package-lock.json
+6. Build/deploy logs
+7. Worker runtime identity/version
+8. Live endpoint/functionality
 
----
+## Product Mapping
 
-# When to Use
+| Requirement | Preferred Cloudflare component |
+|---|---|
+| Backend/API | Workers |
+| Relational data | D1 |
+| Object storage | R2, only after cost/need approval |
+| Key/value configuration | KV when justified |
+| Static frontend hosting | Pages when the project actually uses Pages |
 
-Cloudflare is a strong choice when:
+## Cost Rule
 
-- Global low-latency delivery is required.
-- Edge execution improves performance.
-- Static frontends require simple deployment.
-- Server management should be minimized.
-- Worldwide caching provides measurable benefit.
+Cloudflare services are not assumed to be free merely because a free allowance exists. Before activating a billable service, verify the free limits, billing model, growth behaviour, retention, and migration path, then obtain Founder approval.
 
----
+## Practical Lessons
 
-# When NOT to Use
+- Separate Workers and Pages deployment histories.
+- Verify production runtime directly.
+- Treat Wrangler configuration as part of the deployment contract.
+- Keep bindings and production configuration version-controlled where appropriate.
+- Never infer runtime identity from a UI label alone.
 
-Cloudflare may not be the best choice when:
+## Future Tooling
 
-- Long-running server processes are required.
-- Heavy CPU workloads dominate execution.
-- Large monolithic applications cannot be decomposed.
-- Vendor lock-in is unacceptable.
+Cloudflare's official developer documentation and supported agent/MCP setup may be evaluated as a future Engineering-OS capability for current Workers, Wrangler, D1, R2, and deployment guidance. It is optional and must not be introduced during unrelated project recovery.
 
-Always evaluate architecture before choosing infrastructure.
-
----
-
-# Advantages
-
-- Global Edge Network
-- Fast Deployment
-- Excellent CDN
-- Built-in HTTPS
-- DDoS Protection
-- Scalable Infrastructure
-- Serverless Options
-- Competitive Pricing
-
----
-
-# Limitations
-
-- Worker execution limits
-- Request duration limits
-- Vendor-specific APIs
-- Learning curve for Workers ecosystem
-
-Engineering decisions should consider these limitations early.
-
----
-
-# Best Practices
-
-- Keep Workers lightweight.
-- Separate frontend and backend responsibilities.
-- Version deployments.
-- Use environment variables.
-- Protect secrets.
-- Minimize unnecessary dependencies.
-- Log meaningful events.
-
----
-
-# Common Mistakes
-
-- Treating Pages as a backend server.
-- Mixing frontend and backend responsibilities.
-- Ignoring Worker limitations.
-- Deploying without rollback planning.
-- Depending on undocumented behaviour.
-
----
-
-# Lessons Learned
-
-## Lesson 001
-
-Pages and Workers serve different purposes.
-
-Static hosting should remain in Pages.
-
-Dynamic APIs belong in Workers.
-
----
-
-## Lesson 002
-
-Observable verification is mandatory.
-
-Successful deployment claims should always be supported by actual API responses and functional testing.
-
----
-
-# Decision Matrix
-
-Choose Cloudflare when:
-
-✓ Low maintenance
-
-✓ Edge execution
-
-✓ Fast deployment
-
-✓ Global distribution
-
-Consider alternatives when:
-
-✗ Persistent server processes
-
-✗ Heavy background computation
-
-✗ Platform-specific runtime requirements
-
----
-
-# Related Documents
+## Related Documents
 
 - Workers.md
 - Pages.md
 - D1.md
 - R2.md
 - KV.md
-
----
-
-# Revision Policy
-
-This document should evolve from real engineering experience.
-
-Every Cloudflare incident should improve this guide.
-
-Avoid generic documentation.
-
-Record practical engineering knowledge.
+- GitHub.md

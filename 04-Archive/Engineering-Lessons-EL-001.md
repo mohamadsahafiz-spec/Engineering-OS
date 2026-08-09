@@ -89,7 +89,7 @@ Following this principle:
 
 # Related Documents
 
-- Prompt Enhancement Principle 01
+- Prompt-Standard
 - Prompt Standard
 - Engineering Principles
 
