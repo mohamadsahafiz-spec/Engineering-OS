@@ -1,4 +1,4 @@
-# Engineering-OS v1.2.0 — Atlas Engineering Operating System
+# Engineering-OS v1.3.0 — Atlas Engineering Operating System
 
 ## Purpose
 
@@ -104,8 +104,26 @@ Engineering-OS follows Semantic Versioning:
 6. Update documentation/versioning when applicable.
 7. Record reusable lessons.
 
-## Current Version
+## Current Engineering Focus
 
-**v1.2.0**
+FSOS is currently focused on Smart MHC as the primary MHC workspace and the foundation for a unified customer-facing report engine.
+
+The report direction is an evolution of the legacy Excel standard, not a visual copy. Customer Excel remains the engineering baseline for coverage and traceability; FSOS may reorganize, automate, calculate, compare, and visualize the same engineering meaning in a clearer modern format.
+
+Planned report outputs:
+- Full PDF
+- Compact one-page PDF
+- PPTX presentation
+
+Core report principles:
+- Previous vs Current comparison is a first-class requirement, especially for Laser Power and Beam Profile.
+- Visual presentation should match the meaning of each data type rather than forcing every parameter into tables.
+- Proven external engineering engines are integrated before they are enhanced.
+
+Current FSOS verified version: **v1.0.16**
+
+### Current Version
+
+**v1.3.0**
 
 See [CHANGELOG.md](./CHANGELOG.md).

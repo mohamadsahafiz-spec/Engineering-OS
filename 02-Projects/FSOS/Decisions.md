@@ -3,7 +3,7 @@
 ## Document Status
 
 - **Status:** Living Document
-- **Verified Version:** v1.0.14
+- **Verified Version:** v1.0.16
 - **Owner:** Atlas
 
 ## Decision Record Format
@@ -50,37 +50,93 @@ FSOS production uses Cloudflare Workers. Pages is not the production backend/dep
 
 **Status:** Approved
 
-## Decision 005 — Modular Workspaces
+## Decision 005 — Smart MHC as Primary MHC Workspace
 
-FSOS remains modular across Dashboard, Mission Control, Machine Passport, MHC, Report Studio, Contract Management, Planner, and Settings.
+**Decision:** Smart MHC is the primary MHC workspace and the foundation for future automated customer reporting.
 
-**Status:** Approved
+**Reason:** The v1.0.16 cleanup confirmed the legacy 01–08 MHC workflow and Executive Reports subsystem were redundant and safely removed.
 
-## Decision 006 — Offline Capability
+**Status:** Approved — v1.0.16
 
-Offline capability remains a long-term requirement.
+## Decision 006 — Structured MHC Data Is the Report Source of Truth
 
-**Status:** Planned
+**Decision:** Authoritative structured MHC data must feed Smart MHC presentation, MHC History, and the future Report Engine.
 
-## Decision 007 — Multi-Device Synchronization
+**Reason:** Canvas/widget state must not become a second engineering database or allow values to diverge from the actual MHC record.
 
-Cloud synchronization is a core capability and must remain reliable across devices.
+**Status:** Approved — v1.0.16 direction
 
-**Status:** Verified foundation
+## Decision 007 — Customer Report Evolves the Excel Standard
 
-## Decision 008 — AI-Assisted Engineering
+**Decision:** The legacy customer Excel report is the engineering baseline for coverage and traceability, not the visual destination.
 
-Atlas provides architecture, investigation, governance, and prompts. Mikasa implements approved work.
-
-**Status:** Approved
-
-## Decision 009 — Quality Before Speed
-
-Engineering quality takes priority over development speed. Urgency does not justify unsupported assumptions.
+**Reason:** FSOS should modernize the communication of engineering results rather than reproduce a legacy spreadsheet in a new UI.
 
 **Status:** Approved
 
-## Decision 010 — Free-First Infrastructure
+## Decision 008 — Previous vs Current Is First-Class
+
+**Decision:** Customer reporting must support explicit Previous vs Current comparison, especially for Laser Power and Beam Profile.
+
+**Reason:** The customer explicitly requires comparison and the baseline must be traceable.
+
+**Status:** Approved
+
+## Decision 009 — Proven External Engines Are Protected
+
+**Decision:** The proven Temperature and Laser Hour Monitor engines are integrated/migrated before any future enhancement.
+
+**Reason:** Both engines were developed and proven outside FSOS. Rewriting stable high-value functionality during report work creates unnecessary regression risk.
+
+**Status:** Approved — current Smart MHC phase
+
+## Decision 010 — Temperature Engine Frozen for Current Phase
+
+**Decision:** Do not redesign the Temperature Engine during the current Smart MHC report work. Migrate/integrate the proven engine only.
+
+**Reason:** It already handles very large `.log` datasets and near-instant chart generation in its proven external implementation.
+
+**Status:** Approved — current phase
+
+## Decision 011 — Laser Hours Is Customer-Facing Report Data
+
+**Decision:** Laser Hour Monitoring is a high-value customer report section.
+
+**Reason:** Laser operating hours provide important asset/service context and should be communicated clearly, not hidden as internal-only telemetry.
+
+**Status:** Approved
+
+## Decision 012 — Report Visuals Follow Data Meaning
+
+**Decision:** Each engineering parameter should use a visual representation appropriate to its data semantics.
+
+**Examples:** specification bands, Previous/Current delta visuals, profile comparisons, optimization curves, adjustment scales, operating-band charts, quality evidence panels, calibration result panels, and action flows.
+
+**Status:** Approved design direction
+
+## Decision 013 — Laser Profile and Product Via Quality
+
+**Decision:** Laser Profile primarily communicates the inspected customer product/process parameters. Product Via Quality communicates diameter, roundness, taper, and relevant evidence images.
+
+**Status:** Approved
+
+## Decision 014 — Stage & Scanner Calibration / AGC
+
+**Decision:** Customer reporting should communicate Stage & Scanner Calibration / AGC results primarily as within-specification/out-of-specification outcomes with supporting images where useful.
+
+**Reason:** The customer needs the calibration result and evidence; exact presentation will be designed from real samples.
+
+**Status:** Approved
+
+## Decision 015 — Requirement Verification Before Schema Expansion
+
+**Decision:** Do not add engineering fields merely because an audit interprets them as customer requirements.
+
+**Reason:** Actual customer workflow and real report/reference evidence outrank assumptions.
+
+**Status:** Permanent rule
+
+## Decision 016 — Free-First Infrastructure
 
 FSOS will prefer existing/free/open-source infrastructure before paid services.
 
@@ -88,7 +144,7 @@ Any billable service requires explicit Founder approval after cost, growth, rete
 
 **Status:** Approved
 
-## Decision 011 — Image Persistence Deferred
+## Decision 017 — Image Persistence Deferred
 
 R2 was identified as a technically suitable candidate for durable image storage, but it was not activated because it introduces a usage-based storage dependency.
 
@@ -96,7 +152,7 @@ The next step is to evaluate genuinely free/no-billing alternatives first.
 
 **Status:** Deferred
 
-## Decision 012 — Future Standalone Client
+## Decision 018 — Future Standalone Client
 
 FSOS may evolve from browser-first to standalone desktop software using a local database and the existing sync architecture.
 
@@ -113,6 +169,7 @@ FSOS may evolve from browser-first to standalone desktop software using a local 
 - Audit logging
 - API versioning
 - Desktop framework selection
+- Final unified Report Engine data contract and renderer architecture
 
 ## Superseded Decisions
 

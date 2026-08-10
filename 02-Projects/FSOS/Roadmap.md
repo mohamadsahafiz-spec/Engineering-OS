@@ -3,12 +3,14 @@
 ## Document Status
 
 - **Status:** Living Document
-- **Verified Version:** v1.0.14
+- **Verified Version:** v1.0.16
 - **Owner:** Atlas
 
 ## Product Vision
 
-Build a premium engineering operations platform that enables field engineers to execute work, manage machine data, generate professional reports, and synchronize information reliably across devices.
+Build a premium engineering operations platform that enables field engineers to execute work, manage machine data, generate professional customer reports, and synchronize information reliably across devices.
+
+The report experience should evolve the legacy Excel standard into clear, visual engineering communication rather than reproducing spreadsheet presentation.
 
 ## Development Priorities
 
@@ -17,6 +19,8 @@ Build a premium engineering operations platform that enables field engineers to 
 3. Verified reliability before optimization.
 4. Documentation alongside implementation.
 5. Free-first infrastructure unless a paid dependency is explicitly justified and approved.
+6. Preserve proven engines before attempting future enhancement.
+7. Capture authoritative structured engineering data before automating report rendering.
 
 ## Phase 1 — Foundation
 
@@ -28,30 +32,100 @@ Build a premium engineering operations platform that enables field engineers to 
 - D1 persistence
 - Synchronization foundation
 - Runtime/deployment verification
+- v1.0.15 large telemetry quota optimization and IndexedDB raw telemetry storage
+- v1.0.16 controlled legacy architecture cleanup
 
 ## Phase 2 — Core Platform
 
-**Status: Active Development**
+**Status: Active**
 
 - Dashboard
 - Mission Control
 - Machine Passport
-- Machine Health Check
+- Smart MHC
+- MHC History
 - Planner
-- Report Studio
 - Contract Management
 
-## Phase 3 — Operational Excellence
+Obsolete 01–08 MHC stage workflow and Executive Reports have been removed.
 
-**Status: Planned**
+## Phase 3 — Smart MHC Engineering Record
 
-- Workflow optimization
-- Report improvements
-- Search
-- Performance improvements
-- Engineering analytics
+**Status: Current Priority**
 
-## Phase 4 — Offline Capability
+- Establish Smart MHC as the authoritative MHC record.
+- Preserve existing stable calculation engines.
+- Integrate the proven Laser Hour Monitor.
+- Integrate the proven Temperature Engine without redesign.
+- Capture Focus Optimization result and evidence.
+- Capture Power Offset result.
+- Capture Stage & Scanner Calibration / AGC result and evidence.
+- Preserve Laser Profile as customer/product/process context.
+- Capture Product Via Quality: diameter, roundness, taper, and images.
+- Establish explicit Previous vs Current baseline selection.
+- Ensure Canvas presentation cannot silently diverge from authoritative engineering data.
+
+## Phase 4 — Unified Report Engine
+
+**Status: Planned — after Phase 3 data foundation**
+
+Target outputs:
+
+1. **Full PDF** — complete engineering/customer report with structured sections, evidence, comparison, findings, actions, and buyoff.
+2. **Compact PDF** — one-page executive/customer summary; page size may be adapted when necessary to preserve readability.
+3. **PPTX** — presentation-ready engineering summary.
+
+Report architecture principles:
+
+- Legacy Excel = engineering coverage baseline.
+- Structured MHC record = report data source.
+- Visual design = optimized for customer understanding.
+- Each data type gets an appropriate visual representation.
+- Previous vs Current comparison is explicit and traceable.
+- Evidence is preserved.
+- Report generation is deterministic and not dependent on manually recreating engineering values.
+
+Potential report flow:
+
+```text
+Cover
+  ↓
+Index
+  ↓
+Machine / Service Context
+  ↓
+Executive Health Summary
+  ↓
+Laser Hours
+  ↓
+Laser Power — Previous / Current / Comparison
+  ↓
+Beam Profile — Previous / Current / Comparison
+  ↓
+Focus Optimization
+  ↓
+Power Offset
+  ↓
+Product / Laser Profile
+  ↓
+Product Via Quality
+  ↓
+Stage & Scanner Calibration / AGC
+  ↓
+Temperature
+  ↓
+Spare Recommendations
+  ↓
+Findings / Corrective Actions
+  ↓
+Evidence
+  ↓
+Buyoff
+```
+
+The final order may be improved during report UX/design work.
+
+## Phase 5 — Offline Capability
 
 **Status: Future**
 
@@ -68,7 +142,7 @@ Potential technologies:
 - Cloudflare Workers
 - D1
 
-## Phase 5 — Desktop Platform
+## Phase 6 — Desktop Platform
 
 **Status: Future — not current scope**
 
@@ -85,7 +159,7 @@ Potential technologies:
 
 The web → standalone transition must preserve the existing Worker/D1 synchronization architecture wherever practical.
 
-## Phase 6 — Intelligence
+## Phase 7 — Intelligence
 
 **Status: Future**
 
@@ -97,9 +171,9 @@ The web → standalone transition must preserve the existing Worker/D1 synchroni
 
 ## Current Priority
 
-**Resolve durable image persistence without introducing an unapproved recurring storage cost.**
+**Build the Smart MHC authoritative data foundation and report readiness without destabilizing proven engines.**
 
-Current image evidence is browser-local. The next architecture decision must compare genuinely free/no-billing options before activating R2 or another paid-capable service.
+Durable image persistence remains unresolved and deferred under free-first governance. R2 is not activated.
 
 ## Release Philosophy
 

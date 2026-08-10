@@ -131,4 +131,5 @@ Do not duplicate the entire incident across multiple documents.
 | Version | Status | Summary |
 |---|---|---|
 | 1.0.0 | Superseded | Initial framework. |
-| 1.2.0 | Active | Added deployment-chain investigation, repository comparison, decision gates, cost review, and investigation logging. |
+| 1.2.0 | Superseded | Added deployment-chain investigation, repository comparison, decision gates, cost review, and investigation logging. |
+| 1.3.0 | Active | Preserved evidence-first decision discipline while adding context-continuity governance. |

@@ -128,6 +128,17 @@ Never submit the first draft.
 
 □ Final answer reduces uncertainty?
 
+
+## Phase 9 — Context Continuity
+
+□ Is this conversation becoming long enough that reliable context may be at risk?
+
+□ If yes, has Atlas warned the Founder and recommended a new chat?
+
+□ If the warning was missed and the conversation continues, has Atlas repeated it?
+
+□ Before migration, is a concise handover ready?
+
 ## Emergency Rule
 
 Urgency never authorizes guessing.
