@@ -1,190 +1,104 @@
-# FSOS (Field Service Operations System)
+# FSOS Project
 
-## Project Status
+## Identity
 
-- **Status:** Active Development
-- **Verified Version:** v1.0.34
-- **Foundation:** Green / verified
-- **Priority:** Smart MHC and customer-facing report engineering
-- **Owner:** Sahafiz
-- **Lead Architect:** Atlas
-- **Implementation Engineer:** Mikasa
+**Project:** Field Service Operations System (FSOS)  
+**Current verified version:** v1.0.37  
+**Engineering governance:** Engineering OS v1.4.0
+
+FSOS is a real field-service engineering operating system, not a demo application.
 
 ## Purpose
 
-FSOS is an engineering operations platform for field service execution, Machine Health Checks, machine data, reporting, contract management, and operational intelligence.
+FSOS supports:
+- Machine Health Check;
+- laser calibration;
+- Machine Passport;
+- engineering measurements;
+- evidence capture;
+- customer reporting;
+- contracts and planning;
+- Recommended Parts Master;
+- future operational intelligence.
 
-## Vision
+## Current verified foundation
 
-Build a reliable engineering operating platform that captures the engineering record once, preserves traceability, and turns it into useful operational and customer-facing information without forcing engineers or customers to work from legacy spreadsheet-style presentation.
+### Data integrity
 
-## Verified Technology Stack
+The authoritative persistence model is established and protected.
 
-### Frontend
+Customer identity is relationship-based through `customerId`. Display names do not create customer identity.
 
-- React
-- Vite
-- Tailwind
-- Cloudflare Worker static assets / frontend delivery
+Zero-state/ghost-data cleanup has been completed and verified.
 
-### Backend
+### Machine Passport
 
-- Cloudflare Workers
+Machine Passport is a protected engineering module covering machine identity, customer relationship, laser lifecycle/runtime, laser power, temperature, beam profile, product/process information, and MHC history.
 
-### Database
+### Smart MHC
 
-- Cloudflare D1
+Smart MHC is the primary MHC workspace and the intended authoritative engineering record.
 
-### Version Control
-
-- Git
-- GitHub
-
-### Future / Not Yet Active
-
-- R2 for durable image storage; not activated
-- SQLite for future desktop/offline architecture
-- Tauri or Electron evaluation for future standalone software
-
-## v1.0.34 Verified Additions
+Relevant engineering data includes:
+- Laser Power;
+- Beam Profile;
+- Temperature;
+- Laser Hours;
+- Product / Process;
+- Focus Optimization;
+- Power Offset;
+- Stage / Scanner Calibration / AGC;
+- Product / Via Quality;
+- Findings;
+- Actions;
+- Evidence.
 
 ### Recommended Parts Master
 
-Verified stable:
-- Full CRUD
-- Zero-state lifecycle
-- CSV/JSON structured import
-- Validation preview and explicit confirmation
-- Composite duplicate detection using `machineFamily + partNumber`
-- Strict BMD302W / BMD250WM family isolation
-- Search, category and criticality filtering
-- Interactive column sorting and presets
-- Duration/lifespan parsing
-- Manual Add/Edit/Delete after import
-- Authoritative persistence
-- No ghost records
+Recommended Parts Master is implemented and verified. It is authoritative for future Autopilot recommendations.
 
-The Recommended Parts Master is the authoritative catalog for parts that may be manually selected or later referenced by MHC recommendation logic.
+Autopilot must never invent a part.
 
-### Customer Identity Reconciliation
+## v1.0.37 completed work
 
-Imported machines are reconciled into authoritative persistent Customer records with stable `customerId` values.
+Temperature Inspection Delete was fixed.
 
-Customer rename cascades to associated machines.
+Root cause:
+`handleDeleteSavedRecord` did not directly dispatch authoritative `StorageService.saveMachines`.
 
-Synthetic customer resurrection paths were removed.
+Verification:
+- deletion purges TempRawStore telemetry and storage;
+- record remains deleted after reload;
+- graphs and downsampling remain intact;
+- unselected records remain intact;
+- all 8 tests passed.
 
-Verified:
-- single authoritative customer per imported identity;
-- stable customer links;
-- rename persistence across reload;
-- no duplicate/ghost customers.
+## Current engineering priority
 
-## Current Runtime Issue
+Improve Temperature chart controls without disturbing the proven Temperature Engine.
 
-Saved Temperature Inspection records currently show a malformed time-series visualization in the deployed runtime:
+Required direction:
+- fixed/controlled X-axis major time intervals;
+- controlled Y-axis major-step/range behavior;
+- all temperature channels represented correctly;
+- raw telemetry remains unchanged;
+- display settings must not silently alter engineering calculations.
 
-- time axis/tooltip can display `NaN`;
-- the chart may collapse instead of rendering the expected time-series;
-- the record still reports substantial raw data.
+Before implementation, inspect the existing resampling and aggregation boundaries.
 
-This must be diagnosed through persistence → reload → aggregation/bucketing → chart-data transformation → renderer before the next report milestone.
+## Out of scope
 
-Do not assume the root cause without evidence.
+Unless separately approved:
+- Temperature Engine rewrite;
+- Customer identity redesign;
+- Machine Passport refactor;
+- predictive-maintenance implementation;
+- unrelated persistence changes;
+- speculative part creation;
+- broad UI refactoring.
 
-## Smart MHC — Current Primary Workspace
+## Source-of-truth rule
 
-Smart MHC is the primary MHC workspace and the foundation for the future unified report engine.
+Customer/engineering PDFs and actual MHC evidence take precedence over assumptions.
 
-The intended architectural direction is:
-
-```text
-Structured MHC Record
-        ↓
-Authoritative engineering data
-        ├── Smart MHC presentation
-        ├── MHC History
-        └── Future Report Engine
-              ├── Full PDF
-              ├── Compact PDF
-              └── PPTX
-```
-
-Canvas/widget layout is presentation. It must not become a competing source of truth for engineering values.
-
-## MHC Recommendation Direction
-
-### Current-condition recommendation — planned
-
-MHC Autopilot may analyze current inspection findings such as Laser Power, Beam Profile, Temperature, Product/Process and related engineering results.
-
-It may suggest a part only by resolving to an existing record in the authoritative Recommended Parts Master.
-
-Engineer control remains mandatory:
-- accept an Autopilot suggestion;
-- reject it;
-- or manually search/select a different part.
-
-Autopilot must not invent catalog parts.
-
-### Predictive-maintenance recommendation — future
-
-Predictive maintenance is intentionally later scope.
-
-Future recommendations may use accumulated:
-- laser operating hours;
-- MHC history;
-- measurement drift;
-- temperature history;
-- beam profile history;
-- previous replacements;
-- recommended lifespan;
-- service history.
-
-The system should provide conservative risk/attention recommendations rather than unsupported exact failure predictions.
-
-## MHC Report Evolution
-
-The legacy customer Excel report is the engineering baseline for coverage and traceability, not the visual destination.
-
-FSOS should evolve the report by:
-- reorganizing information around customer understanding;
-- automating calculations and comparisons;
-- using visualizations appropriate to each data type;
-- preserving evidence and traceability;
-- clearly separating current condition, previous baseline, findings, actions, and recommendations.
-
-The report should make it easy to understand:
-
-**What was checked → what changed → whether it is within specification → what was found → what was done → what evidence supports the result → what should happen next.**
-
-## Requirement Verification Rule
-
-Do not invent engineering report requirements from an audit interpretation.
-
-The hierarchy is:
-
-1. Actual customer workflow and engineering practice
-2. Actual customer report/reference evidence
-3. Verified FSOS implementation evidence
-4. Engineering analysis and recommendation
-
-If a requirement is not verified, label it as unverified and request evidence before changing the data model.
-
-## Long-Term Architecture Direction
-
-FSOS may evolve from a browser-first application into standalone desktop software.
-
-Future direction:
-
-**Standalone Client → Local Database → Sync Engine → Cloudflare Worker → D1**
-
-This is future scope, not current implementation work.
-
-## Engineering Principles
-
-FSOS follows Engineering-OS Core governance. Project decisions must respect evidence discipline, cost constraints, change control, and verification requirements.
-
-## Revision Policy
-
-Update this document when verified project architecture, status, or major decisions change. Do not use it as a sprint backlog.
+The actual full customer MHC PDF, BMD302W parts PDF, and BMD250WM parts PDF are required source material for report/catalog decisions.
