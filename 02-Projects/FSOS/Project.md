@@ -3,9 +3,8 @@
 ## Project Status
 
 - **Status:** Active Development
-- **Verified Version:** v1.0.16
+- **Verified Version:** v1.0.34
 - **Foundation:** Green / verified
-- **Remaining Foundation Issue:** Durable cross-device image persistence
 - **Priority:** Smart MHC and customer-facing report engineering
 - **Owner:** Sahafiz
 - **Lead Architect:** Atlas
@@ -47,35 +46,55 @@ Build a reliable engineering operating platform that captures the engineering re
 - SQLite for future desktop/offline architecture
 - Tauri or Electron evaluation for future standalone software
 
-## Current Foundation Status
+## v1.0.34 Verified Additions
 
-Verified green:
+### Recommended Parts Master
 
-- Workers deployment
-- GitHub → Cloudflare deployment chain
-- D1 authoritative persistence
-- Create/Edit/Delete synchronization
-- Full-sync deletion reconciliation
-- D1 migrations and indexes
-- Runtime version/deployment identity
-- Version consistency
-- Deployment reproducibility
-- Local/production parity
-- v1.0.15 large-temperature-log quota optimization and IndexedDB raw telemetry offload
-- v1.0.16 controlled removal of obsolete MHC 01–08 and Executive Reports architecture
+Verified stable:
+- Full CRUD
+- Zero-state lifecycle
+- CSV/JSON structured import
+- Validation preview and explicit confirmation
+- Composite duplicate detection using `machineFamily + partNumber`
+- Strict BMD302W / BMD250WM family isolation
+- Search, category and criticality filtering
+- Interactive column sorting and presets
+- Duration/lifespan parsing
+- Manual Add/Edit/Delete after import
+- Authoritative persistence
+- No ghost records
 
-Remaining red capability:
+The Recommended Parts Master is the authoritative catalog for parts that may be manually selected or later referenced by MHC recommendation logic.
 
-- Durable cross-device image persistence
-- Server-side image deletion
+### Customer Identity Reconciliation
 
-R2 remains inactive under free-first cost governance.
+Imported machines are reconciled into authoritative persistent Customer records with stable `customerId` values.
+
+Customer rename cascades to associated machines.
+
+Synthetic customer resurrection paths were removed.
+
+Verified:
+- single authoritative customer per imported identity;
+- stable customer links;
+- rename persistence across reload;
+- no duplicate/ghost customers.
+
+## Current Runtime Issue
+
+Saved Temperature Inspection records currently show a malformed time-series visualization in the deployed runtime:
+
+- time axis/tooltip can display `NaN`;
+- the chart may collapse instead of rendering the expected time-series;
+- the record still reports substantial raw data.
+
+This must be diagnosed through persistence → reload → aggregation/bucketing → chart-data transformation → renderer before the next report milestone.
+
+Do not assume the root cause without evidence.
 
 ## Smart MHC — Current Primary Workspace
 
 Smart MHC is the primary MHC workspace and the foundation for the future unified report engine.
-
-The controlled v1.0.16 cleanup removed the obsolete 01–08 MHC wizard and Executive Reports subsystem. MHC History and Machine Passport remain active.
 
 The intended architectural direction is:
 
@@ -93,76 +112,53 @@ Authoritative engineering data
 
 Canvas/widget layout is presentation. It must not become a competing source of truth for engineering values.
 
+## MHC Recommendation Direction
+
+### Current-condition recommendation — planned
+
+MHC Autopilot may analyze current inspection findings such as Laser Power, Beam Profile, Temperature, Product/Process and related engineering results.
+
+It may suggest a part only by resolving to an existing record in the authoritative Recommended Parts Master.
+
+Engineer control remains mandatory:
+- accept an Autopilot suggestion;
+- reject it;
+- or manually search/select a different part.
+
+Autopilot must not invent catalog parts.
+
+### Predictive-maintenance recommendation — future
+
+Predictive maintenance is intentionally later scope.
+
+Future recommendations may use accumulated:
+- laser operating hours;
+- MHC history;
+- measurement drift;
+- temperature history;
+- beam profile history;
+- previous replacements;
+- recommended lifespan;
+- service history.
+
+The system should provide conservative risk/attention recommendations rather than unsupported exact failure predictions.
+
 ## MHC Report Evolution
 
 The legacy customer Excel report is the engineering baseline for coverage and traceability, not the visual destination.
 
 FSOS should evolve the report by:
-
 - reorganizing information around customer understanding;
 - automating calculations and comparisons;
 - using visualizations appropriate to each data type;
 - preserving evidence and traceability;
 - clearly separating current condition, previous baseline, findings, actions, and recommendations.
 
-The report should make it easy for a customer to understand:
+The report should make it easy to understand:
 
 **What was checked → what changed → whether it is within specification → what was found → what was done → what evidence supports the result → what should happen next.**
 
-### High-Value Report Areas
-
-- Laser Hour Monitoring
-- Laser Power
-- Beam Size / Beam Profile
-- Focus Optimization
-- Power Offset
-- Product / Laser Profile information
-- Product Via Quality: diameter, roundness, taper, and images
-- Stage & Scanner Calibration / AGC
-- Temperature Monitoring
-- Spare Part Recommendations
-- Findings and Corrective Actions
-- Evidence
-- Engineer / Customer Buyoff
-
-### Comparison Requirement
-
-Previous vs Current comparison is a core requirement.
-
-At minimum, the report architecture must support explicit historical comparison for:
-
-- Laser Power
-- Beam Profile
-
-The comparison baseline must be explicitly selectable and traceable rather than implicitly chosen from an arbitrary first historical session.
-
-### Proven External Engines
-
-#### Temperature Engine — FROZEN FOR CURRENT PHASE
-
-The temperature engine was developed and proven outside FSOS and can process very large `.log` files with near-instant chart generation. The current Smart MHC report phase must not redesign or replace this engine.
-
-Current direction:
-
-**Proven engine → migrate/integrate → report**
-
-Future optimization is allowed only as a separate enhancement phase after the current report foundation is stable.
-
-#### Laser Hour Monitor — FROZEN FOR CURRENT PHASE
-
-The Laser Hour Monitor was also developed and proven outside FSOS. Its engine should be migrated/integrated into FSOS and represented prominently in the customer report.
-
-Do not redesign a proven engine during the current Smart MHC report phase.
-
-### Other Report Semantics
-
-**Laser Profile** is primarily customer/product/process context: what product and parameters were used/inspected. It should remain useful but should not be over-engineered.
-
-**Product Via Quality** is a customer-facing quality result and evidence area covering diameter, roundness, taper, and relevant images.
-
-**Stage & Scanner Calibration / AGC** should primarily communicate the calibration result against specification, with supporting calibration images where useful. Exact presentation should be designed from real samples.
-
-### Requirement Verification Rule
+## Requirement Verification Rule
 
 Do not invent engineering report requirements from an audit interpretation.
 

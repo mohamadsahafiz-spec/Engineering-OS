@@ -3,7 +3,7 @@
 ## Document Status
 
 - **Status:** Living Document
-- **Verified Version:** v1.0.16
+- **Verified Version:** v1.0.34
 - **Owner:** Atlas
 
 ## Product Vision
@@ -21,6 +21,7 @@ The report experience should evolve the legacy Excel standard into clear, visual
 5. Free-first infrastructure unless a paid dependency is explicitly justified and approved.
 6. Preserve proven engines before attempting future enhancement.
 7. Capture authoritative structured engineering data before automating report rendering.
+8. Engineer-controlled recommendations before autonomous action.
 
 ## Phase 1 — Foundation
 
@@ -32,8 +33,7 @@ The report experience should evolve the legacy Excel standard into clear, visual
 - D1 persistence
 - Synchronization foundation
 - Runtime/deployment verification
-- v1.0.15 large telemetry quota optimization and IndexedDB raw telemetry storage
-- v1.0.16 controlled legacy architecture cleanup
+- Controlled legacy architecture cleanup
 
 ## Phase 2 — Core Platform
 
@@ -46,8 +46,7 @@ The report experience should evolve the legacy Excel standard into clear, visual
 - MHC History
 - Planner
 - Contract Management
-
-Obsolete 01–08 MHC stage workflow and Executive Reports have been removed.
+- Recommended Parts Master
 
 ## Phase 3 — Smart MHC Engineering Record
 
@@ -64,6 +63,7 @@ Obsolete 01–08 MHC stage workflow and Executive Reports have been removed.
 - Capture Product Via Quality: diameter, roundness, taper, and images.
 - Establish explicit Previous vs Current baseline selection.
 - Ensure Canvas presentation cannot silently diverge from authoritative engineering data.
+- Diagnose and correct the saved Temperature Inspection chart defect.
 
 ## Phase 4 — Unified Report Engine
 
@@ -72,11 +72,10 @@ Obsolete 01–08 MHC stage workflow and Executive Reports have been removed.
 Target outputs:
 
 1. **Full PDF** — complete engineering/customer report with structured sections, evidence, comparison, findings, actions, and buyoff.
-2. **Compact PDF** — one-page executive/customer summary; page size may be adapted when necessary to preserve readability.
+2. **Compact PDF** — one-page executive/customer summary.
 3. **PPTX** — presentation-ready engineering summary.
 
 Report architecture principles:
-
 - Legacy Excel = engineering coverage baseline.
 - Structured MHC record = report data source.
 - Visual design = optimized for customer understanding.
@@ -85,47 +84,40 @@ Report architecture principles:
 - Evidence is preserved.
 - Report generation is deterministic and not dependent on manually recreating engineering values.
 
-Potential report flow:
+## Phase 5 — MHC Recommendation Intelligence
 
-```text
-Cover
-  ↓
-Index
-  ↓
-Machine / Service Context
-  ↓
-Executive Health Summary
-  ↓
-Laser Hours
-  ↓
-Laser Power — Previous / Current / Comparison
-  ↓
-Beam Profile — Previous / Current / Comparison
-  ↓
-Focus Optimization
-  ↓
-Power Offset
-  ↓
-Product / Laser Profile
-  ↓
-Product Via Quality
-  ↓
-Stage & Scanner Calibration / AGC
-  ↓
-Temperature
-  ↓
-Spare Recommendations
-  ↓
-Findings / Corrective Actions
-  ↓
-Evidence
-  ↓
-Buyoff
-```
+**Status: Planned**
 
-The final order may be improved during report UX/design work.
+### Current-condition recommendations
 
-## Phase 5 — Offline Capability
+MHC Autopilot should be able to:
+- inspect current MHC findings;
+- suggest matching parts from the Recommended Parts Master;
+- provide the engineering reason for each suggestion;
+- allow the engineer to accept, reject, or manually select another part.
+
+Rules:
+- Never invent a part.
+- Never bypass engineer control.
+- Suggestions must resolve to authoritative catalog records.
+
+### Predictive-maintenance recommendations
+
+**Status: Future**
+
+Potential inputs:
+- laser operating hours;
+- MHC history;
+- measurement drift;
+- temperature history;
+- beam profile history;
+- previous replacements;
+- recommended lifespan;
+- service history.
+
+The output should be a conservative attention/risk recommendation, not an unsupported exact failure prediction.
+
+## Phase 6 — Offline Capability
 
 **Status: Future**
 
@@ -136,13 +128,12 @@ The final order may be improved during report UX/design work.
 - Recovery mechanisms
 
 Potential technologies:
-
 - SQLite
 - Sync Engine
 - Cloudflare Workers
 - D1
 
-## Phase 6 — Desktop Platform
+## Phase 7 — Desktop Platform
 
 **Status: Future — not current scope**
 
@@ -152,28 +143,15 @@ Potential technologies:
 - Improved offline capability
 
 Potential technologies:
-
 - Tauri
 - Electron evaluation
 - SQLite
 
-The web → standalone transition must preserve the existing Worker/D1 synchronization architecture wherever practical.
-
-## Phase 7 — Intelligence
-
-**Status: Future**
-
-- Predictive maintenance
-- Engineering insights
-- Operational dashboards
-- AI-assisted reporting
-- Smart recommendations
-
 ## Current Priority
 
-**Build the Smart MHC authoritative data foundation and report readiness without destabilizing proven engines.**
+**Stabilize the saved Temperature Inspection record visualization, review the actual full MHC report evidence, then design current-condition MHC Autopilot → Recommended Parts recommendations.**
 
-Durable image persistence remains unresolved and deferred under free-first governance. R2 is not activated.
+Predictive maintenance remains parked until the above foundation is stable.
 
 ## Release Philosophy
 

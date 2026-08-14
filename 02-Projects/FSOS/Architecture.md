@@ -3,7 +3,7 @@
 ## System Status
 
 - **Status:** Active Development
-- **Verified Version:** v1.0.16
+- **Verified Version:** v1.0.34
 - **Architecture Owner:** Atlas
 
 ## Purpose
@@ -22,61 +22,31 @@ This document is the architectural source of truth for FSOS structure and respon
 - Structured engineering data separated from presentation
 - Proven engineering engines preserved before future enhancement
 - Customer-facing reporting optimized for understanding, not spreadsheet reproduction
+- No invented engineering/catalog identities
 
 ## High-Level Architecture
 
 ```text
-                         User
-                          │
-                   React + Vite UI
-                          │
-             Cloudflare Worker Runtime
-                          │
-                 API / Sync / Logic
-                          │
-                     Cloudflare D1
-                          │
-              Authoritative structured data
-                          │
-             ┌────────────┼─────────────┐
-             ↓            ↓             ↓
-         Smart MHC     MHC History   Report Engine
-        presentation   & records       future
-                                       │
-                          ┌────────────┼────────────┐
-                          ↓            ↓            ↓
-                       Full PDF   Compact PDF     PPTX
-
-Image Evidence (current)
-        │
-        └── Browser IndexedDB only  ← pending durable cross-device solution
-
-Future Image Architecture
-        │
-        └── Approved object storage / free alternative
-
-Future Desktop
-        │
-        └── Tauri or Electron
-                │
-             SQLite
-                │
-           Sync Engine
-                │
-        Cloudflare Worker
-                │
-                D1
+                          User
+                           │
+                    React + Vite UI
+                           │
+              Cloudflare Worker Runtime
+                           │
+                  API / Sync / Logic
+                           │
+                      Cloudflare D1
+                           │
+               Authoritative structured data
+              ┌────────────┼─────────────┐
+              ↓            ↓             ↓
+          Smart MHC     MHC History   Report Engine
+         presentation   & records       future
+                                        │
+                           ┌────────────┼────────────┐
+                           ↓            ↓            ↓
+                        Full PDF   Compact PDF     PPTX
 ```
-
-## Production Deployment
-
-FSOS production target is **Cloudflare Workers**, not Pages.
-
-Deployment chain:
-
-**GitHub → Cloudflare Worker build/deployment → Worker runtime → workers.dev**
-
-Cloudflare Pages may be used by other projects, but it is not the FSOS production deployment path.
 
 ## Core Modules
 
@@ -93,24 +63,33 @@ Machine information, specifications, service history, components, and laser info
 Primary MHC workspace for structured inspection data, engineering evidence, calculations, historical comparison, and customer-report preparation.
 
 ### MHC History
-Historical MHC sessions and access to prior Smart MHC workspaces. It is important to future Previous vs Current reporting.
+Historical MHC sessions and access to prior Smart MHC workspaces.
 
-### Contract Management
-Contract overview, SLA tracking, quarterly schedule, and customer commitments.
+### Recommended Parts Master
+Authoritative catalog for service parts and consumables.
 
-### Planner
-Engineering schedule, mission planning, calendar, and resources.
+Responsibilities:
+- CRUD;
+- CSV/JSON import;
+- validation and duplicate detection;
+- machine-family segregation;
+- search/filter/sort;
+- persistent part identity.
+
+Part identity uses the composite key:
+
+`machineFamily + partNumber`
+
+### Customer Identity
+
+Customer records are authoritative entities.
+
+Machines reference customers through stable `customerId`. `customerName` is display data and must not be treated as the identity key.
+
+Imported machine/customer identities must be reconciled into persistent Customer entities before rename/edit operations can be considered authoritative.
 
 ### Sync Engine
 Device synchronization, queued changes, conflict handling, offline recovery, and reconciliation.
-
-### Future Report Engine
-A unified renderer consuming authoritative MHC data to produce:
-- Full PDF
-- Compact one-page PDF
-- PPTX
-
-The renderer must not require manual recreation of engineering values inside a separate report database.
 
 ## Smart MHC Data Authority
 
@@ -126,7 +105,25 @@ MHCSession / authoritative structured record
 
 Canvas widgets are presentation/projection state. They must not become an independent source of engineering truth.
 
-Future implementation must ensure that editable engineering values do not silently diverge between canvas widget data and the authoritative MHC record.
+## MHC Recommendation Architecture
+
+Future current-condition recommendation flow:
+
+```text
+Current MHC findings
+        ↓
+MHC Autopilot analysis
+        ↓
+Existing Recommended Parts Master
+        ↓
+Engineer accepts/rejects/manual-selects
+        ↓
+Report recommendation
+```
+
+Autopilot must never create an invented part identity.
+
+Future predictive-maintenance flow is separate and should use historical evidence rather than pretending to know exact failure dates.
 
 ## Report Architecture Principles
 
@@ -136,19 +133,7 @@ Report generation should be deterministic and structured:
 
 **Engineering data → calculations → comparison → interpretation → evidence → visual renderer → output**
 
-Visuals should be selected according to data meaning. Examples include:
-- specification bands for values with limits;
-- Previous/Current delta visuals for comparable measurements;
-- profile image comparison/overlay for beam data;
-- optimization curves for focus data;
-- adjustment scales for power offsets;
-- time-series operating-band charts for temperature;
-- quality/evidence panels for product via inspection;
-- result-vs-specification panels for calibration;
-- action cards for spare recommendations;
-- finding → action → result flows for corrective actions.
-
-These are design directions, not permission to fabricate data or conclusions.
+Visuals should be selected according to data meaning.
 
 ## Proven External Engines
 
@@ -156,19 +141,21 @@ These are design directions, not permission to fabricate data or conclusions.
 
 The temperature engine is a proven external engine and must be treated as stable during the current Smart MHC report phase. Integrate/migrate it; do not redesign it unless a verified defect requires intervention.
 
+A current verified runtime defect exists in the saved-record chart presentation and should be isolated to the affected persistence/data-transform/rendering boundary before broader engine changes.
+
 ### Laser Hours
 
 The Laser Hour Monitor is a proven external engine and should be integrated into FSOS and the customer report. Do not redesign it during the current Smart MHC report phase.
-
-Future enhancement of either engine is a separate decision and sprint.
 
 ## Data Ownership
 
 | Data | Authoritative Location |
 |---|---|
-| Operational records | D1 |
+| Structured operational records | D1 / authoritative FSOS persistence |
 | Smart MHC structured records | MHC session / D1-backed FSOS persistence |
 | Historical MHC sessions | MHC History / authoritative MHC records |
+| Customer identity | Customer record + stable `customerId` relationships |
+| Recommended Parts catalog | Recommended Parts Master / authoritative persistence |
 | Sync state/queue | Client + Worker/D1 synchronization flow |
 | Current image payloads | Browser IndexedDB (temporary limitation) |
 | Future image payloads | To be selected after free-first evaluation |
@@ -182,6 +169,8 @@ Future enhancement of either engine is a separate decision and sprint.
 - Keep UI, API, persistence, and sync responsibilities separated.
 - Do not let Canvas presentation state become a competing engineering data store.
 - Do not redesign proven external engines during unrelated report work.
+- Customer identity is keyed by stable `customerId`, not display name.
+- Recommended Parts must resolve to authoritative catalog records.
 - Major architectural changes require an explicit decision record.
 
 ## Future Desktop Architecture

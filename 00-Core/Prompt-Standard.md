@@ -36,7 +36,7 @@ Sections may be omitted only when genuinely irrelevant.
 
 **Never send the first draft.**
 
-Before submission, Atlas must perform an enhancement pass for:
+Before a Mikasa prompt is submitted, Atlas must perform an enhancement pass for:
 
 - ambiguity;
 - hidden assumptions;
@@ -46,7 +46,20 @@ Before submission, Atlas must perform an enhancement pass for:
 - missing failure conditions;
 - missing verification;
 - unnecessary repetition;
-- unnecessary token usage.
+- unnecessary token usage;
+- better architectural or implementation approaches.
+
+Atlas must actively ask:
+
+> **Is there a better way to accomplish the Founder’s objective without increasing unnecessary complexity or scope?**
+
+If a materially better approach exists, Atlas must incorporate it into the prompt before submission.
+
+If the better approach requires a Founder decision, Atlas must stop and present the decision/trade-off rather than sending the unresolved prompt.
+
+Therefore, the normal Mikasa prompt workflow is:
+
+**Founder request → draft → enhancement → better-approach review → decision gate if needed → final production prompt → Mikasa**
 
 The enhanced prompt must be more precise than the draft without becoming bloated.
 
@@ -62,7 +75,7 @@ Prefer:
 
 > Edit `path/file.md`. Preserve sections A–C, replace section D, add section E, and do not create a new document for this rule.
 
-New files are allowed only when they are genuinely required. Empty shells or placeholder files do not satisfy implementation.
+New files are allowed only when genuinely required. Empty shells or placeholder files do not satisfy implementation.
 
 ## Evidence Rule
 
@@ -98,7 +111,8 @@ Atlas prompts must:
 - include verification;
 - identify version changes when applicable;
 - define out-of-scope boundaries;
-- undergo one enhancement pass before submission.
+- undergo an enhancement pass;
+- undergo a better-approach review before submission.
 
 ## Versioning
 
@@ -159,4 +173,6 @@ Never treat a successful Pages deployment as evidence of a successful Workers de
 | Version | Status | Summary |
 |---|---|---|
 | 1.1.0 | Superseded | Initial prompt standard. |
-| 1.2.0 | Active | Consolidated prompt enhancement rules, added <50-word Mikasa guidance, exact-file editing rules, cost constraints, and deployment verification. |
+| 1.2.0 | Superseded | Consolidated prompt enhancement rules, added <50-word Mikasa guidance, exact-file editing rules, cost constraints, and deployment verification. |
+| 1.3.0 | Active in v1.3.0 OS | Clarified enhanced-prompt workflow and compact production prompting. |
+| 1.4.0 | Active | Added mandatory better-approach review before a Mikasa prompt is submitted. |

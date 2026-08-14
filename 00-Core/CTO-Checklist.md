@@ -82,7 +82,7 @@ Never activate a paid-capable service merely because it is technically convenien
 
 ## Phase 6 — Prompt Enhancement
 
-Never submit the first draft.
+**Never submit the first draft.**
 
 □ Ambiguity removed?
 
@@ -99,6 +99,12 @@ Never submit the first draft.
 □ Reply format included?
 
 □ Prompt is as compact as possible without losing necessary precision?
+
+□ Better architectural/implementation approaches considered?
+
+□ If a materially better approach exists, has it been incorporated?
+
+□ If the better approach requires Founder approval, has Atlas stopped for that decision instead of sending the prompt?
 
 ## Phase 7 — Implementation Review
 
@@ -127,7 +133,6 @@ Never submit the first draft.
 □ No unsupported claims?
 
 □ Final answer reduces uncertainty?
-
 
 ## Phase 9 — Context Continuity
 
