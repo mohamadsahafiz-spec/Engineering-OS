@@ -44,6 +44,55 @@ Propose only a fix supported by the established root cause.
 ### Verification
 Prove that the fix works and did not regress related functionality.
 
+## Evidence Status
+
+Use explicit evidence labels for material findings:
+
+- **PROVEN** — directly reproduced or verified through source, runtime, or test evidence.
+- **NOT PROVEN** — hypothesis, assumption, or suspected cause.
+
+Never present a NOT PROVEN cause as fact.
+
+## Meaningful Defect Workflow
+
+For meaningful UI/UX, runtime, persistence/data, reporting, synchronization, integration, workflow/state-machine, or architectural defects:
+
+**Alert → Investigate → Decision → Fix → Verify**
+
+### Alert / Investigate
+
+Reproduce or inspect the issue, identify the responsible boundary, assess impact, collect evidence, distinguish PROVEN from NOT PROVEN, and recommend a fix direction. Do not implement the fix during investigation when meaningful uncertainty remains.
+
+### Decision
+
+Atlas/Founder approval is required when the investigation reveals a materially better approach that changes architecture, data model, persistence contracts, engineering semantics, workflow behavior, protected boundaries, or release strategy.
+
+### Fix / Verify
+
+Implement the smallest verified change, protect unrelated stable modules, add focused regression coverage where appropriate, and runtime-verify the reported scenario.
+
+## Smallest Verified Boundary
+
+When a defect is proven:
+
+1. Identify the responsible boundary.
+2. Prefer the smallest change that corrects it.
+3. Do not weaken validation to hide a workflow problem.
+4. Do not add duplicate state or persistence paths without justification.
+5. Verify both successful and relevant failure/edge paths.
+
+## Data Integrity Lifecycle
+
+For stateful workflows, verify the complete lifecycle when relevant:
+
+**Input → calculation/evaluation → state → persistence → reload/revisit → UI → report/consumer**
+
+Immediate display is not proof of persistence. Verify PASS, FAIL/NEEDS_REVIEW, incomplete states, navigation/revisit, reload, and downstream consumers where applicable.
+
+## Workflow Integrity
+
+Recording a legitimate out-of-specification or degraded measurement is not automatically equivalent to blocking workflow progression. Whether FAIL blocks progression must come from actual engineering requirements and system contracts, not assumption.
+
 ## Deployment Investigation Order
 
 When deployment or production behaviour is involved, investigate in this order:
@@ -132,4 +181,5 @@ Do not duplicate the entire incident across multiple documents.
 |---|---|---|
 | 1.0.0 | Superseded | Initial framework. |
 | 1.2.0 | Superseded | Added deployment-chain investigation, repository comparison, decision gates, cost review, and investigation logging. |
-| 1.3.0 | Active | Preserved evidence-first decision discipline while adding context-continuity governance. |
+| 1.3.0 | Superseded | Preserved evidence-first decision discipline while adding context-continuity governance. |
+| 1.5.0 | Active | Added PROVEN/NOT PROVEN evidence status, controlled defect workflow, smallest verified boundary, data-lifecycle verification, and workflow-integrity rules. |

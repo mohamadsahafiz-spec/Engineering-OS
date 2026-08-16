@@ -4,7 +4,7 @@
 
 **Project:** Field Service Operations System (FSOS)  
 **Current verified version:** v1.0.37  
-**Engineering governance:** Engineering OS v1.4.0
+**Engineering governance:** Engineering OS v1.6.0
 
 FSOS is a real field-service engineering operating system, not a demo application.
 

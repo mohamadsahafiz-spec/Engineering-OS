@@ -1,4 +1,4 @@
-# Engineering-OS v1.4.0 — Atlas Engineering Operating System
+# Engineering-OS v1.6.0 — Atlas Engineering Operating System
 
 ## Purpose
 
@@ -103,16 +103,9 @@ Core report principles:
 * Proven external engineering engines are integrated before they are enhanced.
 * Actual customer workflow and report evidence take precedence over inferred requirements.
 
-### Current FSOS verified state
+### Project Versioning Boundary
 
-**Verified version: v1.0.34**
-
-The current verified FSOS state includes:
-* Recommended Parts Master with CRUD, CSV/JSON import, validation preview, duplicate detection, family isolation, search/filtering, sorting, presets, and persistence.
-* Authoritative customer identity reconciliation for imported machines using stable `customerId`.
-* Customer rename cascading to associated machines without ghost customer resurrection.
-* Zero-state and ghost-data protections preserved.
-* Current runtime investigation: saved Temperature Inspection records can display malformed time-series axes/tooltip values (`NaN`) and require diagnosis before the next reporting milestone.
+FSOS is governed by this Engineering-OS but maintains its own authoritative project/application version and release history inside `02-Projects/FSOS/`. Engineering-OS does not duplicate a live FSOS version number in the root README.
 
 ### Planned intelligence direction
 

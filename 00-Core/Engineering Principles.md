@@ -91,6 +91,22 @@ When choosing infrastructure, avoid unnecessary coupling that would make a later
 
 Status labels, architecture diagrams, version numbers, and technology notes must reflect the verified current state.
 
+### 18 — Evidence Status Is Explicit
+
+Material findings must be labelled PROVEN or NOT PROVEN. Hypotheses must not be presented as facts.
+
+### 19 — Verify the State Lifecycle
+
+For stateful workflows, correctness includes the path from input through evaluation, state, persistence, reload/revisit, UI, and downstream report/consumer when relevant.
+
+### 20 — Failures Must Remain Engineering Evidence
+
+A legitimate degraded or out-of-spec result should be recordable and reviewable. A FAIL result must not block progression unless the actual engineering requirement or system contract requires blocking.
+
+### 21 — Protect the Founder From Rushed Engineering
+
+When frustration is high, slow the decision process, clarify facts and uncertainty, protect existing work, and avoid consequential changes until the safest action is clear.
+
 ## Engineering Maxim
 
 Optimize for total lifetime cost: engineering time + operational risk + infrastructure cost + future migration cost.

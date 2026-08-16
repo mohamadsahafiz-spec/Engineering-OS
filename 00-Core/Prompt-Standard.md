@@ -10,7 +10,7 @@ A prompt is an engineering specification. Its purpose is predictable execution, 
 
 **Focus on the current task. Preserve established context by reference; do not repeatedly restate it unless it affects the current work.**
 
-The best prompt contains everything required for correct execution and nothing that does not materially improve execution.
+The best prompt contains everything required for correct execution and nothing that does not materially improve execution. Token efficiency applies to both prompt input and implementation-agent output.
 
 ## Mandatory Structure
 
@@ -63,6 +63,20 @@ Therefore, the normal Mikasa prompt workflow is:
 
 The enhanced prompt must be more precise than the draft without becoming bloated.
 
+## Token Economy
+
+For Mikasa implementation prompts:
+
+- focus on the current task;
+- include only materially required evidence and constraints;
+- reference established architecture/history instead of repeating it;
+- avoid unnecessary narrative;
+- prefer compact bullets and precise instructions;
+- related tasks may be combined when that is genuinely more efficient;
+- use enough precision to prevent ambiguity, but no more.
+
+Mikasa's completion is a **ceiling, not a target**: normally report only status, material changes/files, verification, version/changelog, and material risks. Do not repeat the prompt or dump code. Exceed the 50-word ceiling only for a genuine blocker, architectural conflict, migration/data-integrity warning, unexpected regression, important uncertainty, or evidence requiring explanation.
+
 ## Existing-Repository Rule
 
 When Mikasa edits a repository, identify the exact existing files and intended edits.
@@ -76,6 +90,10 @@ Prefer:
 > Edit `path/file.md`. Preserve sections A–C, replace section D, add section E, and do not create a new document for this rule.
 
 New files are allowed only when genuinely required. Empty shells or placeholder files do not satisfy implementation.
+
+## Defect Prompt Rule
+
+For meaningful defects, do not send a fix prompt from a symptom alone. The prompt should be based on the established investigation result, identify the responsible boundary, state the verified evidence, and require focused verification. Follow the defect workflow in `Decision-Making.md`.
 
 ## Evidence Rule
 
@@ -175,4 +193,5 @@ Never treat a successful Pages deployment as evidence of a successful Workers de
 | 1.1.0 | Superseded | Initial prompt standard. |
 | 1.2.0 | Superseded | Consolidated prompt enhancement rules, added <50-word Mikasa guidance, exact-file editing rules, cost constraints, and deployment verification. |
 | 1.3.0 | Active in v1.3.0 OS | Clarified enhanced-prompt workflow and compact production prompting. |
-| 1.4.0 | Active | Added mandatory better-approach review before a Mikasa prompt is submitted. |
+| 1.4.0 | Superseded | Added mandatory better-approach review before a Mikasa prompt is submitted. |
+| 1.5.0 | Active | Added input/output token economy, 50-word ceiling clarification, and evidence-backed defect-prompt requirements. |
