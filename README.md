@@ -1,4 +1,4 @@
-# Engineering-OS v1.6.0 — Atlas Engineering Operating System
+# Engineering-OS v1.7.0 — Atlas Engineering Operating System
 
 ## Purpose
 
@@ -7,6 +7,16 @@ Engineering-OS is the permanent engineering governance, decision, prompt, templa
 It is designed to protect engineering time, project stability, Founder resources, and long-term maintainability.
 
 ## Core Operating Model
+
+    Founder / User
+        ↓
+    Atlas — governance, investigation, decisions, prompts, review
+        ↓
+    Mikasa / implementation agents — implementation + technical evidence
+        ↓
+    Founder verification / acceptance where required
+
+Engineering-OS itself is maintained by **Atlas**. Implementation agents must not independently modify active Engineering-OS governance.
 
     User Intent
         ↓
@@ -103,6 +113,10 @@ Core report principles:
 * Proven external engineering engines are integrated before they are enhanced.
 * Actual customer workflow and report evidence take precedence over inferred requirements.
 
+### Active Surface Rule
+
+Future Atlas sessions should begin with the active Core rules and the current project state. `04-Archive` is historical evidence and should be consulted only when historical context is required. Redundant README/state copies should not become competing sources of truth.
+
 ### Project Versioning Boundary
 
 FSOS is governed by this Engineering-OS but maintains its own authoritative project/application version and release history inside `02-Projects/FSOS/`. Engineering-OS does not duplicate a live FSOS version number in the root README.
@@ -115,4 +129,4 @@ FSOS is governed by this Engineering-OS but maintains its own authoritative proj
 
 ## Current Version
 
-v1.4.0
+v1.7.0

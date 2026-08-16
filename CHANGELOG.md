@@ -1,5 +1,17 @@
 # Engineering-OS Changelog
 
+## v1.7.0 — Role Authority & Stewardship
+
+### Added
+- Explicit Founder / Atlas / Mikasa responsibility boundaries.
+- Atlas designated as the exclusive steward and updater of active Engineering-OS governance.
+- Clear rule that implementation-agent completion/verification reports are evidence for review, not automatic Founder acceptance.
+- Active-surface guidance: future Atlas sessions start from active Core/project state; Archive is consulted only when historical context is required.
+
+### Changed
+- Root README and metadata now identify Engineering-OS v1.7.0.
+- Engineering-OS remains separate from project/application versioning.
+
 ## v1.6.0 — Consolidated Engineering OS
 
 ### Changed
