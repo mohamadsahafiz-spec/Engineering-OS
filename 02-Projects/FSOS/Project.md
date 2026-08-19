@@ -3,8 +3,8 @@
 ## Identity
 
 **Project:** Field Service Operations System (FSOS)  
-**Current verified version:** v1.0.37  
-**Engineering governance:** Engineering OS v1.6.0
+**Current verified version:** v1.1.16 candidate status  
+**Engineering governance:** Engineering-OS v1.8.0
 
 FSOS is a real field-service engineering operating system, not a demo application.
 
@@ -59,7 +59,7 @@ Recommended Parts Master is implemented and verified. It is authoritative for fu
 
 Autopilot must never invent a part.
 
-## v1.0.37 completed work
+## Historical v1.0.37 foundation work
 
 Temperature Inspection Delete was fixed.
 
@@ -73,18 +73,15 @@ Verification:
 - unselected records remain intact;
 - all 8 tests passed.
 
-## Current engineering priority
+## Current engineering state
 
-Improve Temperature chart controls without disturbing the proven Temperature Engine.
+The active FSOS state is maintained in `FSOS-Current-State.md`. This document preserves the project identity and architectural foundation; it must not be treated as a competing current-state ledger.
 
-Required direction:
-- fixed/controlled X-axis major time intervals;
-- controlled Y-axis major-step/range behavior;
-- all temperature channels represented correctly;
-- raw telemetry remains unchanged;
-- display settings must not silently alter engineering calculations.
-
-Before implementation, inspect the existing resampling and aggregation boundaries.
+Current verified direction:
+- MHC Autopilot and Machine Passport remain protected core workflows.
+- Full MHC PDF pipeline is substantially restored and verified.
+- Legacy UI cleanup Phase 1 is complete; Operations remains intentionally preserved.
+- Current immediate task: remove Mission Control while leaving Daily Work as the only DAILY WORK entry.
 
 ## Out of scope
 

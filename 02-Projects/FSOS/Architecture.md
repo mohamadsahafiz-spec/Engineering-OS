@@ -3,7 +3,7 @@
 ## System Status
 
 - **Status:** Active Development
-- **Verified Version:** v1.0.34
+- **Verified Version:** v1.1.16 candidate status
 - **Architecture Owner:** Atlas
 
 ## Purpose
@@ -50,11 +50,11 @@ This document is the architectural source of truth for FSOS structure and respon
 
 ## Core Modules
 
-### Dashboard
-Daily overview, mission summary, upcoming work, and notifications.
+### Daily Work
+Primary daily-entry surface for active work and MHC navigation.
 
 ### Mission Control
-Active work execution, workflow progression, and SOP guidance.
+Legacy UI surface currently pending removal; its removal must not affect shared core infrastructure or MHC workflows.
 
 ### Machine Passport
 Machine information, specifications, service history, components, and laser information.
@@ -141,7 +141,7 @@ Visuals should be selected according to data meaning.
 
 The temperature engine is a proven external engine and must be treated as stable during the current Smart MHC report phase. Integrate/migrate it; do not redesign it unless a verified defect requires intervention.
 
-A current verified runtime defect exists in the saved-record chart presentation and should be isolated to the affected persistence/data-transform/rendering boundary before broader engine changes.
+Historical Temperature chart issues and their v1.0.37 persistence fix remain documented in the archive. Current work should follow the active FSOS current-state document and not treat the archived chart-control roadmap as the active project priority unless explicitly re-approved.
 
 ### Laser Hours
 

@@ -9,8 +9,13 @@
 - Active-surface guidance: future Atlas sessions start from active Core/project state; Archive is consulted only when historical context is required.
 
 ### Changed
-- Root README and metadata now identify Engineering-OS v1.7.0.
+- Root README and metadata now identify Engineering-OS v1.8.0.
 - Engineering-OS remains separate from project/application versioning.
+
+### Migration continuity clarification
+- Active Engineering-OS/project state takes precedence over historical Archive records.
+- Atlas owns active Engineering-OS maintenance and continuity across chat migrations.
+- A repository/documentation update must not be claimed complete without verified artifact changes.
 
 ## v1.6.0 — Consolidated Engineering OS
 

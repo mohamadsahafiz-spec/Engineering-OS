@@ -1,6 +1,6 @@
 # FSOS Roadmap
 
-## Current: v1.0.37
+## Current: v1.1.16 candidate status
 
 ### Completed
 
@@ -14,32 +14,25 @@
 
 ## Immediate next
 
-### Temperature Chart Controls
+### Legacy UI cleanup continuation
 
-Add explicit chart controls for:
+Remove **Mission Control** completely from UI/navigation and delete only its genuinely orphaned route/module code. Leave **Daily Work** as the only item under the DAILY WORK section.
 
-**X-axis**
-- selectable major time interval (for example 1h, 2h, 3h, 6h, etc.).
+Protected during this task:
+- MHC Autopilot;
+- Canvas / Workspace;
+- MHC History;
+- Machine Passport;
+- Operations;
+- StorageService / SyncEngine;
+- MHC session architecture;
+- Report Engine / Full PDF.
 
-**Y-axis**
-- predictable major-step/range behavior;
-- no unwanted automatic range changes when fixed behavior is selected.
-
-**Channels**
-- temperature has six channels; chart/preview behavior must not accidentally expose only CH1 when the underlying record contains CH1–CH6.
+Verification must include tests, typecheck, production build, Daily Work functionality, and initialization of core MHC workflows.
 
 ### Engineering boundary
 
-Do not redesign the proven Temperature Engine simply to implement chart controls.
-
-First establish:
-`raw telemetry → existing resampling/aggregation → chart data → renderer`
-
-Then decide whether the new interval belongs to:
-- chart-only presentation; or
-- an existing engineering aggregation boundary.
-
-Raw telemetry must remain intact.
+Do not reopen stable core architecture or historical Temperature work without new evidence. Follow `FSOS-Current-State.md` as the active project-state source.
 
 ## After chart stabilization
 

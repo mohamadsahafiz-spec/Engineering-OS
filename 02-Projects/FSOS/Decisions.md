@@ -3,7 +3,7 @@
 ## Document Status
 
 - **Status:** Living Document
-- **Verified Version:** v1.0.34
+- **Verified Version:** v1.1.16 candidate status
 - **Owner:** Atlas
 
 ## Decision Record Format
@@ -157,6 +157,22 @@ FSOS may evolve from browser-first to standalone desktop software using a local 
 **Reason:** Predictive logic requires accumulated historical evidence and must be conservative.
 
 **Status:** Future
+
+## Decision 023 — Engineering-OS Active-State Precedence
+
+**Decision:** Active Engineering-OS root/governance and `02-Projects/<project>/` current-state documents take precedence over `04-Archive/` historical records.
+
+**Reason:** Prevent historical version/state records from being mistaken for the current baseline during chat migration.
+
+**Status:** Approved — Engineering-OS v1.8.0
+
+## Decision 024 — Atlas Owns Engineering-OS Continuity
+
+**Decision:** Atlas is responsible for maintaining and synchronizing active Engineering-OS documentation across FSOS evolution and chat migrations.
+
+**Reason:** Engineering-OS continuity is a governance responsibility and must not become a Founder maintenance task or be delegated to implementation agents.
+
+**Status:** Approved — Engineering-OS v1.8.0
 
 ## Pending Decisions
 

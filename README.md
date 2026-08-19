@@ -1,4 +1,4 @@
-# Engineering-OS v1.7.0 — Atlas Engineering Operating System
+# Engineering-OS v1.8.0 — Atlas Engineering Operating System
 
 ## Purpose
 
@@ -115,7 +115,18 @@ Core report principles:
 
 ### Active Surface Rule
 
-Future Atlas sessions should begin with the active Core rules and the current project state. `04-Archive` is historical evidence and should be consulted only when historical context is required. Redundant README/state copies should not become competing sources of truth.
+Future Atlas sessions must begin with the active Core rules and the current project state. `04-Archive` is historical evidence only and must never be treated as the current baseline when an active source exists.
+
+Precedence:
+1. Active Engineering-OS root/current governance defines the current Engineering-OS version.
+2. `00-Core/` defines active governance and operating rules.
+3. `02-Projects/<project>/` defines the current project state.
+4. `03-Knowledge/` provides current technology guidance with explicit status labels.
+5. `04-Archive/` provides historical evidence and lessons only.
+
+If an archived document says v1.6.0 while the active root says v1.7.0, v1.7.0 is current. The archived v1.6.0 record remains valid as history. Future Atlas sessions must identify source status before using version or project-state claims.
+
+Redundant README/state copies must not become competing sources of truth.
 
 ### Project Versioning Boundary
 
