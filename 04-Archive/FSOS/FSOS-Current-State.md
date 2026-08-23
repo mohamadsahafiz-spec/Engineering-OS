@@ -1,8 +1,8 @@
-# FSOS Current State — v1.0.37
+# FSOS Current State — v1.2.1
 
 ## Verified baseline
 
-FSOS is currently at v1.0.37.
+FSOS is currently at **v1.2.1**.
 
 FSOS is a production-oriented Field Service Operations System for:
 - Machine Health Check;
@@ -96,20 +96,42 @@ Treat these as protected unless evidence requires change:
 
 ## Current next priority
 
-Temperature chart visualization controls are the next focused enhancement.
+### Full MHC PDF QA
 
-Desired capability:
-- deterministic X-axis time intervals such as 1h, 2h, 3h, 6h, etc.;
-- deterministic Y-axis major-step/range behavior instead of unwanted automatic/random-looking scaling;
-- clear controls placed in the Temperature workspace;
-- support for all available temperature channels, not an accidental CH1-only presentation.
+Sprint 01 repair work has completed the confirmed repair batches. The next phase is **QA, not speculative feature development**.
 
-Important architectural boundary:
-The new chart controls should be treated as visualization/display behavior unless source evidence proves that the existing Temperature Engine aggregation layer must change.
+QA scope:
+1. Review the complete Full MHC PDF page-by-page.
+2. Verify section presence and numbering.
+3. Verify TOC ↔ actual section ↔ page mapping.
+4. Check data presentation, readability, pagination, clipping, headers, footers, and evidence.
+5. Record only confirmed findings as PROVEN; do not guess.
+6. Group confirmed defects into small, focused repair batches.
 
-Raw telemetry must remain authoritative and unmodified by display-only controls.
+### Sprint 01 verified repair state
 
-The existing resampling/aggregation model must be inspected before implementation. Do not blindly replace the existing Resample Bucket behavior.
+| Item | Status |
+|---|---|
+| Batch A — §07/§08/§09 restoration | PASS / locked |
+| Batch B — §12 restoration | PASS / locked |
+| Batch C — §13/§14 restoration | PASS / locked |
+| Batch D — §18 numbering repair | PASS / locked |
+| Batch E — Autopilot individual engineer disposition | PASS / locked |
+| Batch F — §06 comparison presentation | PASS / locked |
+| Item #1 — Autopilot exit control | Implemented; final destination verification pending |
+| Current Autopilot label | `EXIT AUTOPILOT` |
+| Intended exit destination | Canvas / Workspace |
+| Current FSOS application version | **v1.2.1** |
+| Next QA phase | **Full MHC PDF QA** |
+
+### Versioning rule
+
+FSOS application numeric version components are capped at **10**. When a component reaches 10, roll over to the next component instead of creating values above 10.
+
+Example:
+`v1.1.10 → v1.2.0`
+
+Every implementation release must update the application version source/metadata and project changelog; the in-app/System Settings changelog must also be updated where applicable.
 
 ## Reporting / intelligence roadmap
 

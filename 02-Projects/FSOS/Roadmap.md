@@ -1,6 +1,6 @@
 # FSOS Roadmap
 
-## Current: v1.1.16 candidate status
+## Current: v1.2.1
 
 ### Completed
 
@@ -14,34 +14,30 @@
 
 ## Immediate next
 
-### Legacy UI cleanup continuation
+### Full MHC PDF QA
 
-Remove **Mission Control** completely from UI/navigation and delete only its genuinely orphaned route/module code. Leave **Daily Work** as the only item under the DAILY WORK section.
+Sprint 01 repair batches A–F are complete and locked. Autopilot Item #1 is implemented; its final destination behavior still requires Founder verification.
 
-Protected during this task:
-- MHC Autopilot;
-- Canvas / Workspace;
-- MHC History;
-- Machine Passport;
-- Operations;
-- StorageService / SyncEngine;
-- MHC session architecture;
-- Report Engine / Full PDF.
+The next phase is a page-by-page QA pass of the complete Full MHC PDF before creating further repair batches.
 
-Verification must include tests, typecheck, production build, Daily Work functionality, and initialization of core MHC workflows.
+QA sequence:
+1. Page 1 → final page, in order.
+2. Confirm every active section is present.
+3. Confirm numbering and TOC mapping.
+4. Confirm authoritative data presentation.
+5. Confirm pagination, clipping, overlap, headers, and footers.
+6. Record only evidence-backed findings.
+7. Convert confirmed defects into small focused repair batches.
 
-### Engineering boundary
+### Completed Sprint 01 repair batches
 
-Do not reopen stable core architecture or historical Temperature work without new evidence. Follow `FSOS-Current-State.md` as the active project-state source.
-
-## After chart stabilization
-
-1. Study the complete customer MHC report.
-2. Map report requirements to Smart MHC / Report Studio.
-3. Identify genuine gaps.
-4. Improve report traceability.
-5. Design MHC Autopilot current-condition recommendations.
-6. Resolve recommendations only against authoritative Recommended Parts records.
+- Batch A — §07, §08, §09 restoration.
+- Batch B — §12 Temperature restoration.
+- Batch C — §13, §14 restoration.
+- Batch D — §18 Buyoff renumbering / continuous numbering.
+- Batch E — individual Autopilot engineer disposition.
+- Batch F — §06 Previous vs Current comparison presentation.
+- Item #1 — Autopilot exit control implemented; final destination verification pending.
 
 ## Parked
 

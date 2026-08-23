@@ -1,5 +1,25 @@
 # Engineering-OS Changelog
 
+## v1.8.0 — FSOS Continuity & Focused Execution Update
+
+### Added
+- Focused-batch execution rule for FSOS repair work: known issue → focused batch → implementation → evidence → Founder verification → lock → next batch.
+- Active continuity requirement for a compact running state summary covering completed/locked work, current task, pending verification, current FSOS version, and next priority.
+- Full-PDF QA gate after the confirmed Sprint 01 repair batches, before speculative new feature work.
+
+### Clarified
+- FSOS application versions are project-owned and independent from Engineering-OS versions.
+- FSOS numeric version components must not exceed 10; roll over at the boundary (for example `v1.1.10 → v1.2.0`).
+- Implementation completion claims remain evidence until Founder verification/acceptance where required.
+- Material implementation work must update the relevant project changelog and in-app changelog where applicable.
+
+### Current FSOS checkpoint
+- FSOS application version: **v1.2.1**.
+- Sprint 01 repair batches A–F: **PASS / locked**.
+- Autopilot Item #1: `EXIT AUTOPILOT` label implemented; final Canvas / Workspace destination verification pending.
+- Next priority: **Full MHC PDF QA**.
+
+
 ## v1.7.0 — Role Authority & Stewardship
 
 ### Added

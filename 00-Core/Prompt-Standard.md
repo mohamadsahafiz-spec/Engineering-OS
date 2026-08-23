@@ -77,6 +77,26 @@ For Mikasa implementation prompts:
 
 Mikasa's completion is a **ceiling, not a target**: normally report only status, material changes/files, verification, version/changelog, and material risks. Do not repeat the prompt or dump code. Exceed the 50-word ceiling only for a genuine blocker, architectural conflict, migration/data-integrity warning, unexpected regression, important uncertainty, or evidence requiring explanation.
 
+## FSOS Focused-Batch & Continuity Rules
+
+For FSOS implementation prompts:
+- one confirmed problem per focused batch unless combining tasks materially improves correctness without increasing ambiguity;
+- define explicit out-of-scope boundaries;
+- stop after the requested boundary and wait for Founder verification before starting the next batch;
+- do not create a new batch for work that has already been completed and accepted;
+- after each batch, preserve the active state in the Atlas running summary so migration/context loss cannot change the plan.
+
+## FSOS Application Versioning Rule
+
+FSOS application numeric version components are capped at **10**.
+
+When a component reaches 10, roll over to the next component:
+- `v1.1.10 → v1.2.0`
+- never create `v1.1.11`, `v1.1.20`, etc.
+
+Implementation prompts must include the concrete previous/new FSOS application version when a versioned implementation is requested, and must require the relevant version metadata and changelog updates.
+
+
 ## Existing-Repository Rule
 
 When Mikasa edits a repository, identify the exact existing files and intended edits.
