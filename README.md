@@ -1,4 +1,4 @@
-# Engineering-OS v1.8.0 — Atlas Engineering Operating System
+# Engineering-OS v1.9.0 — Atlas Engineering Operating System
 
 ## Purpose
 
@@ -57,6 +57,12 @@ Engineering-OS itself is maintained by **Atlas**. Implementation agents must not
     │   └── FSOS/
     ├── 03-Knowledge/
     └── 04-Archive/
+
+## Canonical Active Surface
+
+The active Engineering-OS is defined by `README.md`, `CHANGELOG.md`, `metadata.json`, `00-Core/`, `01-Templates/`, `02-Projects/`, and `03-Knowledge/`. `04-Archive/` contains historical evidence and is not an active source of truth.
+
+Historical migration/update material must not become a competing active instruction set. Before changing Engineering-OS, Atlas must inspect the current canonical active surface and use historical/archive material only when historical context is required.
 
 ## Core Governance
 
@@ -146,4 +152,4 @@ FSOS is governed by this Engineering-OS but maintains its own authoritative proj
 
 ## Current Version
 
-v1.7.0
+v1.9.0

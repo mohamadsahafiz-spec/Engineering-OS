@@ -153,6 +153,8 @@ Never activate a paid-capable service merely because it is technically convenien
 
 ## Phase 10 — Context Continuity
 
+□ Before changing Engineering-OS, have I inspected the current canonical active files rather than relying on historical migration/update artifacts?
+
 □ Is this conversation becoming long enough that reliable context may be at risk?
 
 □ If yes, has Atlas warned the Founder and recommended a new chat?

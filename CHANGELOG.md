@@ -1,3 +1,16 @@
+## v1.9.0 — Canonical Repository & Continuity Cleanup
+
+### Changed
+- Cleaned the Engineering-OS root to keep only the active operating surface and required repository files.
+- Removed redundant root-level migration/update artifacts from the active repository surface; historical material remains preserved through the Archive where appropriate.
+- Clarified the canonical active source: `README.md`, `CHANGELOG.md`, `metadata.json`, `00-Core/`, `01-Templates/`, `02-Projects/`, and `03-Knowledge/`.
+- Clarified that historical/archive material must not override verified current active state.
+- Strengthened Atlas continuity guidance so Engineering-OS changes begin by inspecting the canonical active files rather than assuming historical migration documents are authoritative.
+
+### Version
+- Engineering-OS active version is now **v1.9.0**.
+
+
 # Engineering-OS Changelog
 
 ## v1.8.0 — FSOS Continuity & Focused Execution Update
