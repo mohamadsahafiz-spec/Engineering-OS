@@ -135,6 +135,8 @@ Never activate a paid-capable service merely because it is technically convenien
 
 □ Version/changelog requirements defined?
 
+□ FSOS application version metadata, root CHANGELOG.md, and in-app Changelog are synchronized and verified?
+
 □ Documentation updated where necessary?
 
 □ Deployment steps separated from code changes?

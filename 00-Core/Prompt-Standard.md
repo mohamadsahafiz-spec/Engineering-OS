@@ -96,6 +96,21 @@ When a component reaches 10, roll over to the next component:
 
 Implementation prompts must include the concrete previous/new FSOS application version when a versioned implementation is requested, and must require the relevant version metadata and changelog updates.
 
+### FSOS Version & Changelog Synchronization
+
+For every versioned FSOS implementation task, the version update is incomplete unless all applicable version surfaces are synchronized:
+
+- FSOS application/runtime version metadata.
+- Root `CHANGELOG.md`.
+- In-app Changelog presentation/source.
+- Package/build/deployment version metadata where applicable.
+
+The implementation prompt must explicitly require synchronization and verification of these surfaces.
+
+A task must not be reported complete if the application version, root `CHANGELOG.md`, and in-app Changelog are inconsistent.
+
+If any version surface is unclear, unavailable, or conflicts with another source, Atlas must stop and resolve the uncertainty before issuing the implementation prompt.
+
 
 ## Existing-Repository Rule
 
